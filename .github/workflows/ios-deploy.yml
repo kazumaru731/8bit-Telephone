@@ -2,6 +2,7 @@ name: Deploy iOS App to TestFlight
 
 # どんな時に自動化を起動するか？
 on:
+  workflow_dispatch:
   push:
     # masterブランチに、Builds/iOSフォルダの中身がPushされた時だけ動かす
     branches:
