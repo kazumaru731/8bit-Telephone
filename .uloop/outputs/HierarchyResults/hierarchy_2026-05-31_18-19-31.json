@@ -1,0 +1,747 @@
+{
+  "ExportTimestamp": "2026-05-31 18:19:31",
+  "Context": {
+    "sceneType": "editor",
+    "sceneName": "GameScene",
+    "nodeCount": 52,
+    "maxDepth": 5
+  },
+  "Hierarchy": [
+    {
+      "sceneName": "GameScene",
+      "stats": {
+        "rootCount": 7,
+        "nodeCount": 52,
+        "maxDepth": 5
+      },
+      "componentsLut": [
+        "Transform",
+        "GameManager",
+        "KanjiDatabase",
+        "RectTransform",
+        "Canvas",
+        "CanvasScaler",
+        "GraphicRaycaster",
+        "CanvasRenderer",
+        "Image",
+        "MainMenuUI",
+        "TextMeshProUGUI",
+        "Button",
+        "TMP_InputField",
+        "KanjiInputValidator",
+        "QuestionerUI",
+        "KanjiFlipper",
+        "NetworkObject",
+        "LayoutElement",
+        "TMP_SubMeshUI",
+        "Camera",
+        "EventSystem",
+        "StandaloneInputModule",
+        "NetworkLauncher",
+        "NetworkRunner"
+      ],
+      "roots": [
+        {
+          "name": "GameManager",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            1
+          ],
+          "siblingIndex": 0,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "KanjiDatabase",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            2
+          ],
+          "siblingIndex": 1,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "MainCanvas",
+          "isActive": true,
+          "componentsIdx": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "siblingIndex": 2,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "MainMenuPanel",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                7,
+                8,
+                9
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "TitleText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    10
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "QuestionerButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    11,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        10
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "AnswererButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    11,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        10
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "TopicInputPanel",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 3,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "TopicLabel",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        10
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "TopicInputField",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        12,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text Area",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "Placeholder",
+                              "isActive": true,
+                              "componentsIdx": [
+                                3,
+                                7,
+                                10
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            },
+                            {
+                              "name": "Text",
+                              "isActive": true,
+                              "componentsIdx": [
+                                3,
+                                7,
+                                10
+                              ],
+                              "siblingIndex": 1,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "StartButton",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        11,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 2,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "RoomIdInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    12
+                  ],
+                  "siblingIndex": 4,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "RoomIdInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    12
+                  ],
+                  "siblingIndex": 5,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "RoomIdInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    12
+                  ],
+                  "siblingIndex": 6,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "QuestionerPanel",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                7,
+                8,
+                13,
+                14
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "FlipArea",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "TopicDisplayText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    10
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "FlipCanvas",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    15,
+                    16
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "KanjiInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    12,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 3,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            10
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "AddKanjiButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    11,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 4,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        10
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "CompleteButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    11,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 5,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        10
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "KanjiCountText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    10
+                  ],
+                  "siblingIndex": 6,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "SuggestionPanel",
+                  "isActive": false,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 7,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "WaitingPanel",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                7,
+                8
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "WaitingMessageText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    10
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "ResultPanel",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                7,
+                8
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "ResultText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    10
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "TMP SubMeshUI [NotoSansJP_Full SDF Material + LiberationSans SDF Atlas]",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        17,
+                        7,
+                        18
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Main Camera",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            19
+          ],
+          "siblingIndex": 3,
+          "tag": "MainCamera",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "EventSystem",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            20,
+            21
+          ],
+          "siblingIndex": 4,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "NetworkLauncher",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            22
+          ],
+          "siblingIndex": 5,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "NetworkRunnerPrefab",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            23
+          ],
+          "siblingIndex": 6,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

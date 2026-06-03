@@ -1,7 +1,7 @@
 {
     "customPort": 8700,
     "projectRootPath": "D:\\Unity_projects\\8bit-Telephone",
-    "serverSessionId": "be8172a99d614b069be458b9dfcefde7",
+    "serverSessionId": "368608eefa594c65bfdb60c6f92c33c8",
     "showDeveloperTools": false,
     "enableMcpLogs": false,
     "enableCommunicationLogs": false,
@@ -27,5 +27,12 @@
     "compileWindowHasData": false,
     "pendingCompileRequestIds": [],
     "compileRequests": [],
-    "connectedLLMTools": []
+    "connectedLLMTools": [
+        {
+            "Name": "gemini-cli-mcp-client",
+            "Endpoint": "127.0.0.1:64031",
+            "Port": 64031,
+            "ConnectedAtString": "2026-06-03T20:57:20.724+09:00"
+        }
+    ]
 }

@@ -1,0 +1,2810 @@
+{
+  "ExportTimestamp": "2026-05-31 15:41:32",
+  "Context": {
+    "sceneType": "runtime",
+    "sceneName": "Multiple(2): GameScene, DontDestroyOnLoad",
+    "nodeCount": 202,
+    "maxDepth": 6
+  },
+  "Hierarchy": [
+    {
+      "sceneName": "GameScene",
+      "stats": {
+        "rootCount": 4,
+        "nodeCount": 60,
+        "maxDepth": 6
+      },
+      "componentsLut": [
+        "RectTransform",
+        "Canvas",
+        "CanvasScaler",
+        "GraphicRaycaster",
+        "CanvasRenderer",
+        "Image",
+        "MainMenuUI",
+        "TextMeshProUGUI",
+        "Button",
+        "TMP_InputField",
+        "TMP_SelectionCaret",
+        "LayoutElement",
+        "KanjiInputValidator",
+        "QuestionerUI",
+        "KanjiFlipper",
+        "ScrollRect",
+        "Mask",
+        "GridLayoutGroup",
+        "ContentSizeFitter",
+        "Transform",
+        "Camera",
+        "EventSystem",
+        "StandaloneInputModule",
+        "BaseInput"
+      ],
+      "roots": [
+        {
+          "name": "MainCanvas",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "siblingIndex": 0,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "MainMenuPanel",
+              "isActive": false,
+              "componentsIdx": [
+                0,
+                4,
+                5,
+                6
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "TitleText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    7
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "QuestionerButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    8,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        4,
+                        7
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "AnswererButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    8,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        4,
+                        7
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "TopicInputPanel",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 3,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "TopicLabel",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        4,
+                        7
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "TopicInputField",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        9,
+                        4,
+                        5
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text Area",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "Caret",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                10,
+                                11
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            },
+                            {
+                              "name": "Placeholder",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                7
+                              ],
+                              "siblingIndex": 1,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            },
+                            {
+                              "name": "Text",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                7
+                              ],
+                              "siblingIndex": 2,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "StartButton",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        8,
+                        4,
+                        5
+                      ],
+                      "siblingIndex": 2,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            4,
+                            7
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "QuestionerPanel",
+              "isActive": true,
+              "componentsIdx": [
+                0,
+                4,
+                5,
+                12,
+                13
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "FlipArea",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "TopicDisplayText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    7
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "FlipCanvas",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    5,
+                    14
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "KanjiInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    9,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 3,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Caret",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            4,
+                            10,
+                            11
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            4,
+                            7
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            4,
+                            7
+                          ],
+                          "siblingIndex": 2,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "AddKanjiButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    8,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 4,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        4,
+                        7
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "CompleteButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    8,
+                    4,
+                    5
+                  ],
+                  "siblingIndex": 5,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        4,
+                        7
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "KanjiCountText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    7
+                  ],
+                  "siblingIndex": 6,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "SuggestionPanel",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    5,
+                    15
+                  ],
+                  "siblingIndex": 7,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Viewport",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        4,
+                        5,
+                        16
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Content",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            17,
+                            18
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 1,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 2,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 3,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 4,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 5,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 6,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 7,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 8,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "SuggBtn",
+                              "isActive": true,
+                              "componentsIdx": [
+                                0,
+                                4,
+                                5,
+                                8
+                              ],
+                              "siblingIndex": 9,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": [
+                                {
+                                  "name": "Text",
+                                  "isActive": true,
+                                  "componentsIdx": [
+                                    0,
+                                    4,
+                                    7
+                                  ],
+                                  "siblingIndex": 0,
+                                  "tag": "Untagged",
+                                  "layer": 0,
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "WaitingPanel",
+              "isActive": false,
+              "componentsIdx": [
+                0,
+                4,
+                5
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "WaitingMessageText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    7
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "ResultPanel",
+              "isActive": false,
+              "componentsIdx": [
+                0,
+                4,
+                5
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "ResultText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    4,
+                    7
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Main Camera",
+          "isActive": true,
+          "componentsIdx": [
+            19,
+            20
+          ],
+          "siblingIndex": 1,
+          "tag": "MainCamera",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "EventSystem",
+          "isActive": true,
+          "componentsIdx": [
+            19,
+            21,
+            22,
+            23
+          ],
+          "siblingIndex": 2,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "ServerTest",
+          "isActive": true,
+          "componentsIdx": [
+            19
+          ],
+          "siblingIndex": 3,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        }
+      ]
+    },
+    {
+      "sceneName": "DontDestroyOnLoad",
+      "stats": {
+        "rootCount": 6,
+        "nodeCount": 142,
+        "maxDepth": 5
+      },
+      "componentsLut": [
+        "Transform",
+        "KanjiDatabase",
+        "GameManager",
+        "RectTransform",
+        "Canvas",
+        "CanvasScaler",
+        "CanvasGroup",
+        "CanvasRenderer",
+        "Image",
+        "Text",
+        "Outline",
+        "HorizontalLayoutGroup",
+        "ContentSizeFitter",
+        "LayoutElement",
+        "Mask"
+      ],
+      "roots": [
+        {
+          "name": "KanjiDatabase",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            1
+          ],
+          "siblingIndex": 0,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "GameManager",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            2
+          ],
+          "siblingIndex": 1,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": []
+        },
+        {
+          "name": "InputVisualizationCanvas",
+          "isActive": true,
+          "componentsIdx": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "siblingIndex": 2,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "SimulateMouseUiOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "DragStartMarker",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "CursorGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Circle",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairH",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairV",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 2,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "LongPressText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9,
+                        10
+                      ],
+                      "siblingIndex": 3,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateKeyboardOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "Container",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11,
+                    12
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "PreviewBadge",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        13
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "KeyText",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            9,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateMouseInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CanvasGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    6
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "MouseBody",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        14
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "LeftButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "RightButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Divider",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 2,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "WheelOutline",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 3,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollWheel",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 4,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowTop",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 5,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowBottom",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 6,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "MoveDirectionGroup",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "ChevronBg",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "Chevron1",
+                              "isActive": true,
+                              "componentsIdx": [
+                                3,
+                                7,
+                                8
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RecordInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CountdownGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "CountdownText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "RecordingGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "RecDot",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "StatusText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ReplayInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6,
+                7,
+                8
+              ],
+              "siblingIndex": 4,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "StatusText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    9
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ProgressBarBg",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "ProgressBarFill",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "InputVisualizationCanvas",
+          "isActive": true,
+          "componentsIdx": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "siblingIndex": 3,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "SimulateMouseUiOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "DragStartMarker",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "CursorGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Circle",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairH",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairV",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 2,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "LongPressText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9,
+                        10
+                      ],
+                      "siblingIndex": 3,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateKeyboardOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "Container",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11,
+                    12
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "PreviewBadge",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        13
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "KeyText",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            9,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateMouseInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CanvasGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    6
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "MouseBody",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        14
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "LeftButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "RightButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Divider",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 2,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "WheelOutline",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 3,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollWheel",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 4,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowTop",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 5,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowBottom",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 6,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "MoveDirectionGroup",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "ChevronBg",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "Chevron1",
+                              "isActive": true,
+                              "componentsIdx": [
+                                3,
+                                7,
+                                8
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RecordInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CountdownGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "CountdownText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "RecordingGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "RecDot",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "StatusText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ReplayInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6,
+                7,
+                8
+              ],
+              "siblingIndex": 4,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "StatusText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    9
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ProgressBarBg",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "ProgressBarFill",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "InputVisualizationCanvas",
+          "isActive": true,
+          "componentsIdx": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "siblingIndex": 4,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "SimulateMouseUiOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "DragStartMarker",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "CursorGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Circle",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairH",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairV",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 2,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "LongPressText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9,
+                        10
+                      ],
+                      "siblingIndex": 3,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateKeyboardOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "Container",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11,
+                    12
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "PreviewBadge",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        13
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "KeyText",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            9,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateMouseInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CanvasGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    6
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "MouseBody",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        14
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "LeftButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "RightButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Divider",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 2,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "WheelOutline",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 3,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollWheel",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 4,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowTop",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 5,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowBottom",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 6,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "MoveDirectionGroup",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "ChevronBg",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "Chevron1",
+                              "isActive": true,
+                              "componentsIdx": [
+                                3,
+                                7,
+                                8
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RecordInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CountdownGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "CountdownText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "RecordingGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "RecDot",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "StatusText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ReplayInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6,
+                7,
+                8
+              ],
+              "siblingIndex": 4,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "StatusText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    9
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ProgressBarBg",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "ProgressBarFill",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "InputVisualizationCanvas",
+          "isActive": true,
+          "componentsIdx": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "siblingIndex": 5,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "SimulateMouseUiOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "DragStartMarker",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "CursorGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Circle",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairH",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "CrosshairV",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 2,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "LongPressText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9,
+                        10
+                      ],
+                      "siblingIndex": 3,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateKeyboardOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "Container",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11,
+                    12
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "PreviewBadge",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        13
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "KeyText",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            9,
+                            10
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SimulateMouseInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CanvasGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    6
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "MouseBody",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8,
+                        14
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "LeftButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "RightButton",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Divider",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 2,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "WheelOutline",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 3,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollWheel",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 4,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowTop",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 5,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "ScrollArrowBottom",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 6,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "MoveDirectionGroup",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "ChevronBg",
+                          "isActive": true,
+                          "componentsIdx": [
+                            3,
+                            7,
+                            8
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": [
+                            {
+                              "name": "Chevron1",
+                              "isActive": true,
+                              "componentsIdx": [
+                                3,
+                                7,
+                                8
+                              ],
+                              "siblingIndex": 0,
+                              "tag": "Untagged",
+                              "layer": 0,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RecordInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "CountdownGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "CountdownText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "RecordingGroup",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8,
+                    11
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "RecDot",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "StatusText",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        9
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ReplayInputOverlay",
+              "isActive": true,
+              "componentsIdx": [
+                3,
+                6,
+                7,
+                8
+              ],
+              "siblingIndex": 4,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "StatusText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    9
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ProgressBarBg",
+                  "isActive": true,
+                  "componentsIdx": [
+                    3,
+                    7,
+                    8
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "ProgressBarFill",
+                      "isActive": true,
+                      "componentsIdx": [
+                        3,
+                        7,
+                        8
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,18 @@
 {
   "mcpServers": {
     "unity-mcp": {
-      "httpUrl": "http://localhost:8081/mcp",
+      "httpUrl": "http://127.0.0.1:8081/mcp",
       "trust": true
+    },
+    "uLoopMCP": {
+      "command": "node",
+      "args": [
+        "--dns-result-order=ipv4first",
+        "Library/uLoopMCP/server.bundle.js"
+      ],
+      "env": {
+        "UNITY_TCP_PORT": "8700"
+      }
     }
   }
 }

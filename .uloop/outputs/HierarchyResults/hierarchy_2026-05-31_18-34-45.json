@@ -1,0 +1,916 @@
+{
+  "ExportTimestamp": "2026-05-31 18:34:45",
+  "Context": {
+    "sceneType": "editor",
+    "sceneName": "GameScene",
+    "nodeCount": 65,
+    "maxDepth": 4
+  },
+  "Hierarchy": [
+    {
+      "sceneName": "GameScene",
+      "stats": {
+        "rootCount": 1,
+        "nodeCount": 65,
+        "maxDepth": 4
+      },
+      "componentsLut": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "MainMenuUI",
+        "TextMeshProUGUI",
+        "TMP_InputField",
+        "Button"
+      ],
+      "roots": [
+        {
+          "name": "MainMenuPanel",
+          "isActive": true,
+          "componentsIdx": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "siblingIndex": 0,
+          "tag": "Untagged",
+          "layer": 0,
+          "children": [
+            {
+              "name": "TitleText",
+              "isActive": true,
+              "componentsIdx": [
+                0,
+                1,
+                4
+              ],
+              "siblingIndex": 0,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": []
+            },
+            {
+              "name": "TopicInputPanel",
+              "isActive": false,
+              "componentsIdx": [
+                0,
+                1,
+                2
+              ],
+              "siblingIndex": 1,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "TopicLabel",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "TopicInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    5,
+                    1,
+                    2
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            1,
+                            4
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            1,
+                            4
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "StartButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    6,
+                    1,
+                    2
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RoomIdInputField",
+              "isActive": true,
+              "componentsIdx": [
+                0,
+                1,
+                2,
+                5
+              ],
+              "siblingIndex": 2,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "Text Area",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "Placeholder",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RoomIdInputField",
+              "isActive": true,
+              "componentsIdx": [
+                0,
+                1,
+                2,
+                5
+              ],
+              "siblingIndex": 3,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "Text Area",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    },
+                    {
+                      "name": "Placeholder",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 1,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "SelectionPanel",
+              "isActive": true,
+              "componentsIdx": [
+                0
+              ],
+              "siblingIndex": 4,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "RandomMatchButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    6,
+                    1,
+                    2
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "FriendMatchMenuButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    6,
+                    1,
+                    2
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "FriendMatchInputPanel",
+              "isActive": false,
+              "componentsIdx": [
+                0
+              ],
+              "siblingIndex": 5,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "RoomIdInputField",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    5
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text Area",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": [
+                        {
+                          "name": "Text",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            1,
+                            4
+                          ],
+                          "siblingIndex": 0,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        },
+                        {
+                          "name": "Placeholder",
+                          "isActive": true,
+                          "componentsIdx": [
+                            0,
+                            1,
+                            4
+                          ],
+                          "siblingIndex": 1,
+                          "tag": "Untagged",
+                          "layer": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "SearchRoomButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "BackToFriendModeButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "JoinFriendMatchButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 3,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "BackButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 4,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "RoomWaitingPanel",
+              "isActive": true,
+              "componentsIdx": [
+                0,
+                1,
+                2
+              ],
+              "siblingIndex": 6,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "WaitingMessageText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "StartGameButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "StartGameButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "RoomIdText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "siblingIndex": 3,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "PlayerCountText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "siblingIndex": 4,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ReadyButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 5,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "FriendMatchModePanel",
+              "isActive": false,
+              "componentsIdx": [
+                0
+              ],
+              "siblingIndex": 7,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "HostMatchButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "GuestMatchButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "BackToMainButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ConfirmationDialog",
+              "isActive": false,
+              "componentsIdx": [
+                0,
+                1,
+                2
+              ],
+              "siblingIndex": 8,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "ConfirmText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ConfirmJoinButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "CancelJoinButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ConsentDialog",
+              "isActive": false,
+              "componentsIdx": [
+                0,
+                1,
+                2
+              ],
+              "siblingIndex": 9,
+              "tag": "Untagged",
+              "layer": 0,
+              "children": [
+                {
+                  "name": "ConsetText",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "siblingIndex": 0,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": []
+                },
+                {
+                  "name": "ConsentYesButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 1,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "ConsentNoButton",
+                  "isActive": true,
+                  "componentsIdx": [
+                    0,
+                    1,
+                    2,
+                    6
+                  ],
+                  "siblingIndex": 2,
+                  "tag": "Untagged",
+                  "layer": 0,
+                  "children": [
+                    {
+                      "name": "Text",
+                      "isActive": true,
+                      "componentsIdx": [
+                        0,
+                        1,
+                        4
+                      ],
+                      "siblingIndex": 0,
+                      "tag": "Untagged",
+                      "layer": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
