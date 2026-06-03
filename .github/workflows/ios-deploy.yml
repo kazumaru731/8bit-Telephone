@@ -1,0 +1,28 @@
+name: Deploy iOS App to TestFlight
+
+# どんな時に自動化を起動するか？
+on:
+  push:
+    # masterブランチに、Builds/iOSフォルダの中身がPushされた時だけ動かす
+    branches:
+      - master
+    paths:
+      - 'Builds/iOS/**'
+
+# 実行する内容
+jobs:
+  build_and_deploy:
+    # どこで動かすか？ ➔ さっきMacに設定した「self-hosted」のロボットを使う！
+    runs-on: self-hosted
+
+    steps:
+      # 1. GitHubから最新のコードをMacにダウンロードする
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Fastlaneを使ってTestFlightへ自動出荷する
+      - name: Run Fastlane Deploy
+        # MacのiOSフォルダに移動して、先ほど作った deploy_to_testflight の命令を実行する
+        run: |
+          cd Builds/iOS
+          fastlane deploy_to_testflight
