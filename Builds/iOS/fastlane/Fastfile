@@ -1,0 +1,28 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Windowsからの命令を受け取り、自動でTestFlightへ出荷する"
+  lane :deploy_to_testflight do
+    
+    # 1. 念のため最新の証明書や設定をXcodeに適用する
+    update_project_provisioning(
+      xcodeproj: "Unity-iPhone.xcodeproj",
+      profile: "Unity-iPhone/Info.plist"
+    )
+
+    # 2. Xcodeを開かずに裏側で自動ビルド（アーカイブ）して.ipaファイルを作る
+    build_app(
+      project: "Unity-iPhone.xcodeproj",
+      scheme: "Unity-iPhone",
+      export_method: "app-store",
+      output_directory: "./build",
+      output_name: "8bit-Telephone.ipa",
+      clean: true
+    )
+
+    # 3. 出来上がったアプリをAppleのTestFlightへ自動アップロードする
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
