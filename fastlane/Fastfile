@@ -6,7 +6,6 @@ platform :ios do
     
     # Xcodeを開かずに裏側で自動ビルド（アーカイブ）して.ipaファイルを作る
     build_app(
-      # ▼ ココを修正！ 「Builds/iOS」の中にあるよ、とパスを正確に教えます ▼
       project: "./Builds/iOS/Unity-iPhone.xcodeproj",
       scheme: "Unity-iPhone",
       export_method: "app-store",
@@ -18,7 +17,10 @@ platform :ios do
 
     # 出来上がったアプリをAppleのTestFlightへ自動アップロードする
     upload_to_testflight(
-      skip_waiting_for_build_processing: true
+      skip_waiting_for_build_processing: true,
+      # ▼ ココに追加！Apple IDと専用パスワードを直接教えてあげる ▼
+      username: "nanbu0226@gmail.com",
+      apple_id_password: "ixlj-uiha-vdqh-jfww" # 例のApp専用パスワード
     )
   end
 end
