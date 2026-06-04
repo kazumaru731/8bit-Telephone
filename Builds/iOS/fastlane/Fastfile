@@ -12,8 +12,8 @@ platform :ios do
       output_directory: "./build",
       output_name: "8bit-Telephone.ipa",
       clean: true,
-      # ▼ ここを修正！Team IDを指定して、Xcodeに自動で証明書を生成させます ▼
-      xcargs: "DEVELOPMENT_TEAM='M433M58324' -allowProvisioningUpdates" 
+      # ▼ ココを修正！ 「CODE_SIGN_STYLE='Automatic'」 を追加して強制的に自動署名モードにします ▼
+      xcargs: "DEVELOPMENT_TEAM='M433M58324' CODE_SIGN_STYLE='Automatic' -allowProvisioningUpdates" 
     )
 
     # 3. 出来上がったアプリをAppleのTestFlightへ自動アップロードする
