@@ -20,6 +20,8 @@ jobs:
       # 1. GitHubから最新のコードをMacにダウンロードする
       - name: Checkout Code
         uses: actions/checkout@v3
+        with:        # ⬅️ ココを追加！
+          lfs: true
 
       # 2. Fastlaneを使ってTestFlightへ自動出荷する
       - name: Run Fastlane Deploy
