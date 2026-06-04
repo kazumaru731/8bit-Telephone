@@ -26,6 +26,4 @@ jobs:
       # 2. Fastlaneを使ってTestFlightへ自動出荷する
       - name: Run Fastlane Deploy
         # MacのiOSフォルダに移動して、先ほど作った deploy_to_testflight の命令を実行する
-        run: |
-          cd Builds/iOS
-          fastlane deploy_to_testflight
+        run: fastlane deploy_to_testflight

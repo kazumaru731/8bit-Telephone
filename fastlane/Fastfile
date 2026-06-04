@@ -1,0 +1,24 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Windowsからの命令を受け取り、自動でTestFlightへ出荷する"
+  lane :deploy_to_testflight do
+    
+    # Xcodeを開かずに裏側で自動ビルド（アーカイブ）して.ipaファイルを作る
+    build_app(
+      # ▼ ココを修正！ 「Builds/iOS」の中にあるよ、とパスを正確に教えます ▼
+      project: "./Builds/iOS/Unity-iPhone.xcodeproj",
+      scheme: "Unity-iPhone",
+      export_method: "app-store",
+      output_directory: "./build",
+      output_name: "8bit-Telephone.ipa",
+      clean: true,
+      xcargs: "DEVELOPMENT_TEAM='M433M58324' CODE_SIGN_STYLE='Automatic' -allowProvisioningUpdates" 
+    )
+
+    # 出来上がったアプリをAppleのTestFlightへ自動アップロードする
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
