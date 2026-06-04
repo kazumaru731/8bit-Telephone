@@ -28,4 +28,14 @@ jobs:
         # MacのiOSフォルダに移動して、先ほど作った deploy_to_testflight の命令を実行する
         run: fastlane deploy_to_testflight
         env:
-          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "ixlj-uiha-vdqh-jfww"
+          # ▼ App専用パスワードは消して、以下の3つを追加します ▼
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: "efceaad5-96a7-4a33-81f6-b53487d16805"
+          APP_STORE_CONNECT_API_KEY_KEY_ID: "7LFPFQ5W64"
+          # ※改行を含めてそのまま貼り付けるため、`|` を使います
+          APP_STORE_CONNECT_API_KEY_KEY: |
+            -----BEGIN PRIVATE KEY-----
+            MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgZ9NGbkO36R072Quv
+            l7GNmoVcT4YuLryf4gUdU19MZqKgCgYIKoZIzj0DAQehRANCAASzgdM/ckvuoy5s
+            zkSXyEpHjZMvfVLqo+8fqHYK2h10Azj5XcejpPa/50DZlE7jpTi3KtxUL8GhhtKs
+            O+rXHjg+
+            -----END PRIVATE KEY-----
