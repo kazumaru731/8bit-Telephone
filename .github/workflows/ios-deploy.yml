@@ -27,3 +27,5 @@ jobs:
       - name: Run Fastlane Deploy
         # MacのiOSフォルダに移動して、先ほど作った deploy_to_testflight の命令を実行する
         run: fastlane deploy_to_testflight
+        env:
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "ixlj-uiha-vdqh-jfww"

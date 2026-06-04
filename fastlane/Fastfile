@@ -19,8 +19,7 @@ platform :ios do
     upload_to_testflight(
       skip_waiting_for_build_processing: true,
       # ▼ ココに追加！Apple IDと専用パスワードを直接教えてあげる ▼
-      username: "nanbu0226@gmail.com",
-      apple_id_password: "ixlj-uiha-vdqh-jfww" # 例のApp専用パスワード
+      username: "nanbu0226@gmail.com"
     )
   end
 end
