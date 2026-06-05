@@ -232,6 +232,7 @@ namespace KanjiFlipGame.UI
 
         private void OnRandomMatchClicked()
         {
+            Debug.Log("MainMenuUI: RandomMatchButton clicked");
             _isFriendMatch = false;
             NetworkLauncher.Instance.StartRandomMatch(PlayerRole.None);
             ShowWaitingPanel("ランダムマッチング中...");
