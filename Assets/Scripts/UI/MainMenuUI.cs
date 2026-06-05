@@ -16,6 +16,7 @@ namespace KanjiFlipGame.UI
         [SerializeField] private GameObject _selectionPanel;
         [SerializeField] private GameObject _friendMatchModePanel; // ホスト/ゲスト選択
         [SerializeField] private GameObject _friendMatchInputPanel; // ID入力
+        [SerializeField] private GameObject _topicInputPanel;
         [SerializeField] private GameObject _roomWaitingPanel;
         [SerializeField] private GameObject _confirmationDialog;
         [SerializeField] private GameObject _consentDialog;
@@ -56,27 +57,94 @@ namespace KanjiFlipGame.UI
         private SessionInfo _foundSession;
         private bool _isFriendMatch = false;
 
+        void OnEnable()
+        {
+            Debug.Log($"MainMenuUI: OnEnable() called. GameObject: {gameObject.name}");
+            InitializeUI();
+        }
+
         void Start()
         {
+            Debug.Log("MainMenuUI: Start() called");
+            // Startでも初期化（念のため）
+            InitializeUI();
+        }
+
+        private void InitializeUI()
+        {
+            Debug.Log("MainMenuUI: Initializing UI...");
             // ボタンイベントの登録
-            _randomMatchButton.onClick.AddListener(OnRandomMatchClicked);
-            _friendMatchMenuButton.onClick.AddListener(() => ShowPanel(_friendMatchModePanel));
+            // (Remove existing first to avoid duplicates)
+            if (_randomMatchButton != null)
+            {
+                _randomMatchButton.onClick.RemoveAllListeners();
+                _randomMatchButton.onClick.AddListener(OnRandomMatchClicked);
+            }
+            if (_friendMatchMenuButton != null)
+            {
+                _friendMatchMenuButton.onClick.RemoveAllListeners();
+                _friendMatchMenuButton.onClick.AddListener(() => ShowPanel(_friendMatchModePanel));
+            }
             
-            _hostMatchButton.onClick.AddListener(OnHostMatchClicked);
-            _guestMatchButton.onClick.AddListener(OnGuestMatchClicked);
-            _backToMainFromFriendModeButton.onClick.AddListener(() => ShowPanel(_selectionPanel));
+            if (_hostMatchButton != null)
+            {
+                _hostMatchButton.onClick.RemoveAllListeners();
+                _hostMatchButton.onClick.AddListener(OnHostMatchClicked);
+            }
+            if (_guestMatchButton != null)
+            {
+                _guestMatchButton.onClick.RemoveAllListeners();
+                _guestMatchButton.onClick.AddListener(OnGuestMatchClicked);
+            }
+            if (_backToMainFromFriendModeButton != null)
+            {
+                _backToMainFromFriendModeButton.onClick.RemoveAllListeners();
+                _backToMainFromFriendModeButton.onClick.AddListener(() => ShowPanel(_selectionPanel));
+            }
 
-            _searchRoomButton.onClick.AddListener(OnSearchRoomClicked);
-            _backToFriendModeButton.onClick.AddListener(() => ShowPanel(_friendMatchModePanel));
+            if (_searchRoomButton != null)
+            {
+                _searchRoomButton.onClick.RemoveAllListeners();
+                _searchRoomButton.onClick.AddListener(OnSearchRoomClicked);
+            }
+            if (_backToFriendModeButton != null)
+            {
+                _backToFriendModeButton.onClick.RemoveAllListeners();
+                _backToFriendModeButton.onClick.AddListener(() => ShowPanel(_friendMatchModePanel));
+            }
 
-            _confirmJoinButton.onClick.AddListener(OnConfirmJoinClicked);
-            _cancelJoinButton.onClick.AddListener(() => _confirmationDialog.SetActive(false));
+            if (_confirmJoinButton != null)
+            {
+                _confirmJoinButton.onClick.RemoveAllListeners();
+                _confirmJoinButton.onClick.AddListener(OnConfirmJoinClicked);
+            }
+            if (_cancelJoinButton != null)
+            {
+                _cancelJoinButton.onClick.RemoveAllListeners();
+                _cancelJoinButton.onClick.AddListener(() => _confirmationDialog.SetActive(false));
+            }
 
-            _consentYesButton.onClick.AddListener(() => OnConsentClicked(true));
-            _consentNoButton.onClick.AddListener(() => OnConsentClicked(false));
+            if (_consentYesButton != null)
+            {
+                _consentYesButton.onClick.RemoveAllListeners();
+                _consentYesButton.onClick.AddListener(() => OnConsentClicked(true));
+            }
+            if (_consentNoButton != null)
+            {
+                _consentNoButton.onClick.RemoveAllListeners();
+                _consentNoButton.onClick.AddListener(() => OnConsentClicked(false));
+            }
 
-            _readyButton.onClick.AddListener(OnReadyClicked);
-            _startGameButton.onClick.AddListener(OnStartGameButtonClicked);
+            if (_readyButton != null)
+            {
+                _readyButton.onClick.RemoveAllListeners();
+                _readyButton.onClick.AddListener(OnReadyClicked);
+            }
+            if (_startGameButton != null)
+            {
+                _startGameButton.onClick.RemoveAllListeners();
+                _startGameButton.onClick.AddListener(OnStartGameButtonClicked);
+            }
             
             if (_leaveRoomButton != null)
             {
@@ -85,20 +153,29 @@ namespace KanjiFlipGame.UI
             }
 
             // ネットワークイベントの登録
-            NetworkLauncher.Instance.OnFriendRoomFound += OnFriendRoomFound;
-            NetworkLauncher.Instance.OnFriendRoomNotFound += OnFriendRoomNotFound;
+            if (NetworkLauncher.Instance != null)
+            {
+                NetworkLauncher.Instance.OnFriendRoomFound -= OnFriendRoomFound;
+                NetworkLauncher.Instance.OnFriendRoomFound += OnFriendRoomFound;
+                NetworkLauncher.Instance.OnFriendRoomNotFound -= OnFriendRoomNotFound;
+                NetworkLauncher.Instance.OnFriendRoomNotFound += OnFriendRoomNotFound;
+            }
 
             // 初期状態
             ShowPanel(_selectionPanel);
-            _confirmationDialog.SetActive(false);
-            _consentDialog.SetActive(false);
+            if (_confirmationDialog != null) _confirmationDialog.SetActive(false);
+            if (_consentDialog != null) _consentDialog.SetActive(false);
+            
+            Debug.Log($"MainMenuUI: Initial panel set to {_selectionPanel?.name}");
         }
 
         private void Update()
         {
-            if (GameManager.Instance == null || NetworkLauncher.Instance.Runner == null)
+            if (GameManager.Instance == null) return;
+
+            // Runnerがいない間は初期画面を維持
+            if (NetworkLauncher.Instance.Runner == null)
             {
-                // GameManagerがない場合は切断済みか初期画面
                 return;
             }
 
@@ -144,10 +221,11 @@ namespace KanjiFlipGame.UI
 
         private void ShowPanel(GameObject panel)
         {
-            _selectionPanel.SetActive(panel == _selectionPanel);
-            _friendMatchModePanel.SetActive(panel == _friendMatchModePanel);
-            _friendMatchInputPanel.SetActive(panel == _friendMatchInputPanel);
-            _roomWaitingPanel.SetActive(panel == _roomWaitingPanel);
+            if (_selectionPanel != null) _selectionPanel.SetActive(panel == _selectionPanel);
+            if (_friendMatchModePanel != null) _friendMatchModePanel.SetActive(panel == _friendMatchModePanel);
+            if (_friendMatchInputPanel != null) _friendMatchInputPanel.SetActive(panel == _friendMatchInputPanel);
+            if (_topicInputPanel != null) _topicInputPanel.SetActive(panel == _topicInputPanel);
+            if (_roomWaitingPanel != null) _roomWaitingPanel.SetActive(panel == _roomWaitingPanel);
         }
 
         #region マッチング操作
