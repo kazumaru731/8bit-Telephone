@@ -17,7 +17,19 @@ namespace KanjiFlipGame.Network
         private NetworkRunner _currentRunner;
         private List<SessionInfo> _sessions = new List<SessionInfo>();
 
-        public static NetworkLauncher Instance { get; private set; }
+        private static NetworkLauncher _instance;
+        public static NetworkLauncher Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<NetworkLauncher>();
+                }
+                return _instance;
+            }
+            private set => _instance = value;
+        }
 
         public bool IsMaster => _currentRunner != null && _currentRunner.IsSharedModeMasterClient;
         public NetworkRunner Runner => _currentRunner;
@@ -30,12 +42,12 @@ namespace KanjiFlipGame.Network
 
         private void Awake()
         {
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = this;
+                _instance = this;
                 DontDestroyOnLoad(gameObject);
             }
-            else
+            else if (_instance != this)
             {
                 Destroy(gameObject);
             }
@@ -91,25 +103,44 @@ namespace KanjiFlipGame.Network
         /// <summary>
         /// フレンドマッチを開始（ルームID指定）
         /// </summary>
-        public async Task StartFriendMatch(string roomId, PlayerRole role, string topic = "")
+        public async Task StartFriendMatch(string roomId, PlayerRole role, GameMode mode = GameMode.Shared, string topic = "")
         {
-            await StartGame(GameMode.Shared, roomId, role, topic);
+            await StartGame(mode, roomId, role, topic);
         }
 
         private async Task StartGame(GameMode mode, string roomName, PlayerRole role, string topic)
         {
-            // すでにランナーがあり、ロビーのみの場合はそのランナーを使う
-            if (_currentRunner == null)
+            // 以前のランナーがあれば強制的にシャットダウン・破棄する
+            if (_currentRunner != null)
             {
-                _currentRunner = Instantiate(_runnerPrefab);
-                _currentRunner.AddCallbacks(this);
+                try
+                {
+                    await _currentRunner.Shutdown();
+                }
+                catch (System.Exception) {}
+                if (_currentRunner != null && _currentRunner.gameObject != null)
+                {
+                    Destroy(_currentRunner.gameObject);
+                }
+                _currentRunner = null;
             }
+
+            _currentRunner = Instantiate(_runnerPrefab);
+            _currentRunner.AddCallbacks(this);
+
+            var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+            var sceneRef = SceneRef.FromIndex(activeScene.buildIndex);
+
+            // SceneManagerは重複追加しないようGetComponent優先で取得
+            var sceneManager = _currentRunner.gameObject.GetComponent<NetworkSceneManagerDefault>()
+                               ?? _currentRunner.gameObject.AddComponent<NetworkSceneManagerDefault>();
 
             var result = await _currentRunner.StartGame(new StartGameArgs()
             {
                 GameMode = mode,
                 SessionName = roomName, // nullの場合はランダムマッチ
-                SceneManager = _currentRunner.gameObject.AddComponent<NetworkSceneManagerDefault>()
+                Scene = sceneRef,
+                SceneManager = sceneManager,
             });
 
             if (result.Ok)

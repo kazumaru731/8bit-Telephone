@@ -41,6 +41,7 @@ namespace KanjiFlipGame.UI
             GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
             GameManager.Instance.OnAnswerResult.AddListener(OnAnswerResult);
             GameManager.Instance.OnFlipDisplayed.AddListener(DisplayFlipData);
+            GameManager.Instance.OnPlayerRoleChanged.AddListener(OnPlayerRoleChanged);
 
             // 初期状態の設定
             UpdateUI();
@@ -106,6 +107,13 @@ namespace KanjiFlipGame.UI
             {
                 FlipData data = JsonUtility.FromJson<FlipData>(flipDataJson);
                 _kanjiFlipper.LoadFlipData(data);
+                
+                // 役割とパネル表示を強制更新
+                bool isLocalTest = GameManager.Instance != null && GameManager.Instance.IsLocalTestMode;
+                if (!isLocalTest && GameManager.Instance.LocalPlayerRole != PlayerRole.Answerer)
+                {
+                    GameManager.Instance.SetPlayerRole(PlayerRole.Answerer);
+                }
                 ShowAnswererPanel();
                 StartTimer();
             }
@@ -118,8 +126,24 @@ namespace KanjiFlipGame.UI
         {
             if (newState == GameState.Questioning)
             {
-                if (_kanjiFlipper != null) _kanjiFlipper.ClearAll();
+                // 出題フェーズに戻るときは、出題者（Questioner）側だけフリップをクリアする
+                // 回答者側では既に表示されたフリップを保持させておくことで、結果表示時に見えるようにする
+                // 1人テストプレイ時は、次のお題に向けて両側のフリップをクリアする
+                bool isLocalTest = GameManager.Instance != null && GameManager.Instance.IsLocalTestMode;
+                if (isLocalTest)
+                {
+                    if (_kanjiFlipper != null) _kanjiFlipper.ClearAll();
+                }
+                else if (GameManager.Instance != null && GameManager.Instance.LocalPlayerRole == PlayerRole.Questioner)
+                {
+                    if (_kanjiFlipper != null) _kanjiFlipper.ClearAll();
+                }
             }
+            UpdateUI();
+        }
+
+        private void OnPlayerRoleChanged(PlayerRole newRole)
+        {
             UpdateUI();
         }
 
@@ -128,7 +152,19 @@ namespace KanjiFlipGame.UI
         /// </summary>
         private void UpdateUI()
         {
-            if (GameManager.Instance.LocalPlayerRole != PlayerRole.Answerer)
+            bool isLocalTest = GameManager.Instance != null && GameManager.Instance.IsLocalTestMode;
+
+            if (isLocalTest)
+            {
+                // 1人テストプレイ時：回答フェーズまたは結果表示時のみ回答者画面を表示する
+                GameState state = GameManager.Instance.CurrentState;
+                if (state != GameState.Answering && state != GameState.ShowingResult)
+                {
+                    HideAllPanels();
+                    return;
+                }
+            }
+            else if (GameManager.Instance.LocalPlayerRole != PlayerRole.Answerer)
             {
                 HideAllPanels();
                 return;
@@ -145,8 +181,16 @@ namespace KanjiFlipGame.UI
                     break;
 
                 case GameState.Answering:
-                    // 実際の表示はGameManagerからの通知を待つ
-                    ShowWaitingPanel("次の出題を待っています...");
+                    // すでにフリップデータを受信してロード済み（要素が1つ以上ある）の場合は
+                    // 待機パネルではなく回答用パネルを明示的に表示する
+                    if (_kanjiFlipper != null && _kanjiFlipper.CurrentKanjiCount > 0)
+                    {
+                        ShowAnswererPanel();
+                    }
+                    else if (_answererPanel != null && !_answererPanel.activeSelf)
+                    {
+                        ShowWaitingPanel("次の出題を待っています...");
+                    }
                     break;
 
                 case GameState.ShowingResult:
@@ -157,6 +201,45 @@ namespace KanjiFlipGame.UI
                     HideAllPanels();
                     _isTimerActive = false;
                     break;
+            }
+        }
+
+        private void AdjustLayoutForLocalTest()
+        {
+            if (_answererPanel == null) return;
+
+            var rectTrans = _answererPanel.GetComponent<RectTransform>();
+            if (rectTrans != null)
+            {
+                // 右半分にアンカーを設定
+                rectTrans.anchorMin = new Vector2(0.5f, 0f);
+                rectTrans.anchorMax = new Vector2(1f, 1f);
+                rectTrans.offsetMin = Vector2.zero;
+                rectTrans.offsetMax = Vector2.zero;
+            }
+
+            if (_waitingPanel != null && _waitingPanel.transform.parent == _answererPanel.transform.parent)
+            {
+                var waitingRect = _waitingPanel.GetComponent<RectTransform>();
+                if (waitingRect != null)
+                {
+                    waitingRect.anchorMin = new Vector2(0.5f, 0f);
+                    waitingRect.anchorMax = new Vector2(1f, 1f);
+                    waitingRect.offsetMin = Vector2.zero;
+                    waitingRect.offsetMax = Vector2.zero;
+                }
+            }
+
+            if (_resultPanel != null && _resultPanel.transform.parent == _answererPanel.transform.parent)
+            {
+                var resultRect = _resultPanel.GetComponent<RectTransform>();
+                if (resultRect != null)
+                {
+                    resultRect.anchorMin = new Vector2(0.5f, 0f);
+                    resultRect.anchorMax = new Vector2(1f, 1f);
+                    resultRect.offsetMin = Vector2.zero;
+                    resultRect.offsetMax = Vector2.zero;
+                }
             }
         }
 
@@ -261,6 +344,7 @@ namespace KanjiFlipGame.UI
                 GameManager.Instance.OnGameStateChanged.RemoveListener(OnGameStateChanged);
                 GameManager.Instance.OnAnswerResult.RemoveListener(OnAnswerResult);
                 GameManager.Instance.OnFlipDisplayed.RemoveListener(DisplayFlipData);
+                GameManager.Instance.OnPlayerRoleChanged.RemoveListener(OnPlayerRoleChanged);
             }
         }
     }

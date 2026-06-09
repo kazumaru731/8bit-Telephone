@@ -16,6 +16,36 @@ public static class UIBuilder
         var canvas = GameObject.Find("MainCanvas");
         if (canvas == null) return "MainCanvas not found";
 
+        // KanjiElement.prefab のフォント設定自動修正
+        var prefabPath = "Assets/Prefabs/KanjiElement.prefab";
+        var prefabGo = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        if (prefabGo != null)
+        {
+            var textMeshPro = prefabGo.GetComponentInChildren<TextMeshProUGUI>(true);
+            var tmFont = AssetDatabase.LoadAssetAtPath<TMPro.TMP_FontAsset>("Assets/Fonts/NotoSansJP_Kanji SDF.asset");
+            if (textMeshPro != null && tmFont != null)
+            {
+                textMeshPro.font = tmFont;
+                textMeshPro.color = Color.black; // 文字色を確実に黒に設定（背景と同化するのを防ぐ）
+                EditorUtility.SetDirty(textMeshPro);
+                EditorUtility.SetDirty(prefabGo);
+                PrefabUtility.SavePrefabAsset(prefabGo);
+                Debug.Log("Updated KanjiElement prefab font to NotoSansJP_Kanji SDF and color to Black.");
+            }
+        }
+
+        // GameManagerにNetworkObjectがアタッチされているか確認し、無ければアタッチする
+        var gameManagerGo = GameObject.Find("GameManager");
+        if (gameManagerGo != null)
+        {
+            var no = gameManagerGo.GetComponent<Fusion.NetworkObject>();
+            if (no == null)
+            {
+                gameManagerGo.AddComponent<Fusion.NetworkObject>();
+                Debug.Log("NetworkObject component added to GameManager.");
+            }
+        }
+
         // AutoTester コンポーネントのアタッチ
         var autoTester = canvas.GetComponent<KanjiFlipGame.Core.AutoTester>();
         if (autoTester == null)
@@ -77,10 +107,13 @@ public static class UIBuilder
                 qWaitingPanelGo = new GameObject("WaitingPanel", typeof(RectTransform), typeof(Image));
                 qWaitingPanelGo.transform.SetParent(qPanelGo.transform, false);
                 var waitRect = qWaitingPanelGo.GetComponent<RectTransform>();
-                waitRect.anchorMin = new Vector2(0.1f, 0.1f);
-                waitRect.anchorMax = new Vector2(0.9f, 0.9f);
+                // Titleの上に配置するためのアンカー設定 (上部、高さ60px)
+                waitRect.anchorMin = new Vector2(0f, 0.93f);
+                waitRect.anchorMax = new Vector2(1f, 1.0f);
+                waitRect.pivot = new Vector2(0.5f, 1f);
                 waitRect.sizeDelta = Vector2.zero;
-                qWaitingPanelGo.GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f, 0.8f);
+                waitRect.anchoredPosition = Vector2.zero;
+                qWaitingPanelGo.GetComponent<Image>().color = new Color(0.15f, 0.15f, 0.15f, 0.9f);
                 
                 var qWaitTextGo = new GameObject("WaitingMessageText", typeof(RectTransform), typeof(TextMeshProUGUI));
                 qWaitTextGo.transform.SetParent(qWaitingPanelGo.transform, false);
@@ -90,9 +123,25 @@ public static class UIBuilder
                 qWaitTextRect.sizeDelta = Vector2.zero;
                 var qWaitText = qWaitTextGo.GetComponent<TextMeshProUGUI>();
                 qWaitText.text = "待機中...";
-                qWaitText.fontSize = 32;
+                qWaitText.fontSize = 24;
                 qWaitText.alignment = TextAlignmentOptions.Center;
-                qWaitText.color = Color.white;
+                qWaitText.color = Color.yellow; // 目立たせるために黄色にする
+            }
+            else
+            {
+                // 既存のオブジェクトも位置を強制的に補正
+                var waitRect = qWaitingPanelGo.GetComponent<RectTransform>();
+                waitRect.anchorMin = new Vector2(0f, 0.93f);
+                waitRect.anchorMax = new Vector2(1f, 1.0f);
+                waitRect.pivot = new Vector2(0.5f, 1f);
+                waitRect.sizeDelta = Vector2.zero;
+                waitRect.anchoredPosition = Vector2.zero;
+                var qWaitText = qWaitingPanelGo.GetComponentInChildren<TextMeshProUGUI>();
+                if (qWaitText != null)
+                {
+                    qWaitText.fontSize = 24;
+                    qWaitText.color = Color.yellow;
+                }
             }
 
             var qResultPanelGo = qPanelGo.transform.Find("ResultPanel")?.gameObject;
@@ -152,15 +201,47 @@ public static class UIBuilder
             }
             if (topicTextGo != null) serializedQ.FindProperty("_topicText").objectReferenceValue = topicTextGo;
 
+            // --- OperationPanel の作成と取得 ---
+            var opPanelGo = qPanelGo.transform.Find("OperationPanel")?.gameObject;
+            if (opPanelGo == null)
+            {
+                opPanelGo = GameObject.Find("OperationPanel");
+                if (opPanelGo == null || opPanelGo.transform.parent != qPanelGo.transform)
+                {
+                    opPanelGo = new GameObject("OperationPanel", typeof(RectTransform));
+                    opPanelGo.transform.SetParent(qPanelGo.transform, false);
+                }
+            }
+
+            var opRect = opPanelGo.GetComponent<RectTransform>();
+            opRect.anchorMin = new Vector2(0.02f, 0.02f);
+            opRect.anchorMax = new Vector2(0.98f, 0.28f); // 画面下部26%を操作パネル用にする
+            opRect.pivot = new Vector2(0.5f, 0f);
+            opRect.sizeDelta = Vector2.zero;
+            opRect.anchoredPosition = Vector2.zero;
+
+            var hlg = opPanelGo.GetComponent<HorizontalLayoutGroup>();
+            if (hlg == null) hlg = opPanelGo.AddComponent<HorizontalLayoutGroup>();
+            hlg.spacing = 15f;
+            hlg.childAlignment = TextAnchor.MiddleCenter;
+            hlg.childControlWidth = true;
+            hlg.childControlHeight = true;
+            hlg.childForceExpandWidth = false;
+            hlg.childForceExpandHeight = false;
+
             TMP_InputField qInputFieldGo = null;
             var qInputFieldTrans = qPanelGo.transform.Find("KanjiInputField");
+            if (qInputFieldTrans == null && opPanelGo != null)
+            {
+                qInputFieldTrans = opPanelGo.transform.Find("KanjiInputField");
+            }
             if (qInputFieldTrans == null)
             {
                 var go = new GameObject("KanjiInputField", typeof(RectTransform), typeof(Image), typeof(TMP_InputField));
                 go.transform.SetParent(qPanelGo.transform, false);
                 var rect = go.GetComponent<RectTransform>();
-                rect.anchorMin = new Vector2(0.2f, 0.05f);
-                rect.anchorMax = new Vector2(0.6f, 0.15f);
+                rect.anchorMin = new Vector2(0.2f, 0.5f);
+                rect.anchorMax = new Vector2(0.8f, 0.6f);
                 rect.sizeDelta = Vector2.zero;
                 go.GetComponent<Image>().color = Color.white;
 
@@ -205,24 +286,271 @@ public static class UIBuilder
             {
                 qInputFieldGo = qInputFieldTrans.GetComponent<TMP_InputField>();
             }
+            // Ensure the input field is active and visible
+            var inputFieldObj = qInputFieldGo != null ? qInputFieldGo.gameObject : null;
+            if (inputFieldObj != null)
+            {
+                inputFieldObj.SetActive(true);
+                inputFieldObj.transform.SetAsLastSibling();
+            }
             if (qInputFieldGo != null) serializedQ.FindProperty("_kanjiInputField").objectReferenceValue = qInputFieldGo;
 
-            var addBtnGo = qPanelGo.transform.Find("AddKanjiButton")?.GetComponent<Button>();
+            System.Func<string, GameObject> findUIElement = (name) =>
+            {
+                var t = qPanelGo.transform.Find(name);
+                if (t != null) return t.gameObject;
+                t = opPanelGo.transform.Find(name);
+                if (t != null) return t.gameObject;
+                return null;
+            };
+
+            // 各UIパーツの取得
+            var addBtnGoObj = findUIElement("AddKanjiButton");
+            var addBtnGo = addBtnGoObj?.GetComponent<Button>();
+            var completeBtnGoObj = findUIElement("CompleteButton");
+            var completeBtnGo = completeBtnGoObj?.GetComponent<Button>();
+            var plannedBoxGo = findUIElement("PlannedKanjiBox");
+            var suggPanelGo = findUIElement("SuggestionPanel");
+            if (suggPanelGo == null)
+            {
+                suggPanelGo = new GameObject("SuggestionPanel", typeof(RectTransform), typeof(Image));
+                suggPanelGo.transform.SetParent(opPanelGo.transform, false);
+                suggPanelGo.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.4f); // 半透明の背景
+            }
+
+            var newScrollViewTrans = suggPanelGo.transform.Find("Scroll View");
+            GameObject scrollViewGo;
+            if (newScrollViewTrans == null)
+            {
+                // Scroll View
+                scrollViewGo = new GameObject("Scroll View", typeof(RectTransform), typeof(ScrollRect), typeof(Image));
+                scrollViewGo.transform.SetParent(suggPanelGo.transform, false);
+                
+                // 背景画像を設定
+                var svImage = scrollViewGo.GetComponent<Image>();
+                svImage.color = new Color(0.1f, 0.1f, 0.1f, 0.6f);
+            }
+            else
+            {
+                scrollViewGo = newScrollViewTrans.gameObject;
+                var svImage = scrollViewGo.GetComponent<Image>();
+                if (svImage == null) svImage = scrollViewGo.AddComponent<Image>();
+                svImage.color = new Color(0.1f, 0.1f, 0.1f, 0.6f);
+            }
+
+            var viewportTrans = scrollViewGo.transform.Find("Viewport");
+            GameObject viewportGo;
+            if (viewportTrans == null)
+            {
+                // Viewport
+                viewportGo = new GameObject("Viewport", typeof(RectTransform), typeof(Image), typeof(Mask));
+                viewportGo.transform.SetParent(scrollViewGo.transform, false);
+                var vpRect = viewportGo.GetComponent<RectTransform>();
+                vpRect.anchorMin = Vector2.zero;
+                vpRect.anchorMax = Vector2.one;
+                vpRect.sizeDelta = Vector2.zero;
+                viewportGo.GetComponent<Mask>().showMaskGraphic = false;
+            }
+            else
+            {
+                viewportGo = viewportTrans.gameObject;
+            }
+
+            var contentTrans = viewportGo.transform.Find("Content");
+            GameObject contentGo;
+            if (contentTrans == null)
+            {
+                // Content
+                contentGo = new GameObject("Content", typeof(RectTransform));
+                contentGo.transform.SetParent(viewportGo.transform, false);
+                var contentRect = contentGo.GetComponent<RectTransform>();
+                contentRect.anchorMin = new Vector2(0f, 1f);
+                contentRect.anchorMax = new Vector2(1f, 1f);
+                contentRect.pivot = new Vector2(0.5f, 1f);
+                contentRect.sizeDelta = new Vector2(0f, 0f);
+            }
+            else
+            {
+                contentGo = contentTrans.gameObject;
+            }
+
+            // ScrollRect の設定
+            var scrollRect = scrollViewGo.GetComponent<ScrollRect>();
+            if (scrollRect == null) scrollRect = scrollViewGo.AddComponent<ScrollRect>();
+            scrollRect.content = contentGo.GetComponent<RectTransform>();
+            scrollRect.viewport = viewportGo.GetComponent<RectTransform>();
+            scrollRect.horizontal = false;
+            scrollRect.vertical = true;
+            scrollRect.movementType = ScrollRect.MovementType.Elastic;
+
+            // --- 上部UI要素の再配置（被り防止） ---
+            var flipAreaGo = qPanelGo.transform.Find("FlipArea")?.gameObject;
+            if (flipAreaGo != null)
+            {
+                var rect = flipAreaGo.GetComponent<RectTransform>();
+                rect.anchorMin = new Vector2(0.02f, 0.32f);
+                rect.anchorMax = new Vector2(0.98f, 0.85f);
+                rect.sizeDelta = Vector2.zero;
+                rect.anchoredPosition = Vector2.zero;
+            }
+
+            var flipCanvasGo = qPanelGo.transform.Find("FlipCanvas")?.gameObject;
+            if (flipCanvasGo != null)
+            {
+                var rect = flipCanvasGo.GetComponent<RectTransform>();
+                rect.anchorMin = new Vector2(0.02f, 0.32f);
+                rect.anchorMax = new Vector2(0.98f, 0.85f);
+                rect.sizeDelta = Vector2.zero;
+                rect.anchoredPosition = Vector2.zero;
+            }
+
+            topicTextTrans = qPanelGo.transform.Find("TopicDisplayText");
+            if (topicTextTrans != null)
+            {
+                var rect = topicTextTrans.GetComponent<RectTransform>();
+                rect.anchorMin = new Vector2(0.1f, 0.86f);
+                rect.anchorMax = new Vector2(0.9f, 0.98f);
+                rect.sizeDelta = Vector2.zero;
+                rect.anchoredPosition = Vector2.zero;
+            }
+
+            var countTextGoObj = qPanelGo.transform.Find("KanjiCountText")?.gameObject;
+            if (countTextGoObj != null)
+            {
+                var rect = countTextGoObj.GetComponent<RectTransform>();
+                rect.anchorMin = new Vector2(0.8f, 0.28f);
+                rect.anchorMax = new Vector2(0.98f, 0.32f);
+                rect.pivot = new Vector2(1f, 0.5f);
+                rect.sizeDelta = Vector2.zero;
+                rect.anchoredPosition = Vector2.zero;
+            }
+
+            // 出力予定ボックス（PlannedKanjiBox）の作成と取得
+            if (plannedBoxGo == null)
+            {
+                plannedBoxGo = new GameObject("PlannedKanjiBox", typeof(RectTransform), typeof(Image));
+                plannedBoxGo.transform.SetParent(opPanelGo.transform, false);
+
+                var img = plannedBoxGo.GetComponent<Image>();
+                img.color = new Color(0.95f, 0.95f, 0.95f, 1f);
+
+                var border = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+                border.transform.SetParent(plannedBoxGo.transform, false);
+                var txt = border.GetComponent<TextMeshProUGUI>();
+                txt.text = "";
+                txt.fontSize = 28;
+                txt.color = Color.black;
+                txt.alignment = TextAlignmentOptions.Center;
+
+                var txtRect = border.GetComponent<RectTransform>();
+                txtRect.anchorMin = Vector2.zero;
+                txtRect.anchorMax = Vector2.one;
+                txtRect.sizeDelta = Vector2.zero;
+
+                var boxFontAsset = GameObject.Find("TitleText")?.GetComponent<TextMeshProUGUI>()?.font;
+                if (boxFontAsset != null) txt.font = boxFontAsset;
+            }
+
+            var plannedText = plannedBoxGo.transform.Find("Text")?.GetComponent<TextMeshProUGUI>();
+            if (plannedText != null)
+            {
+                serializedQ.FindProperty("_plannedKanjiText").objectReferenceValue = plannedText;
+            }
+
+            // 各操作パーツを OperationPanel の下に移動し LayoutElement を設定
+            System.Action<GameObject, float, float> setupLayoutElement = (go, width, height) =>
+            {
+                if (go == null) return;
+                go.transform.SetParent(opPanelGo.transform, false);
+                var le = go.GetComponent<LayoutElement>();
+                if (le == null) le = go.AddComponent<LayoutElement>();
+                le.preferredWidth = width;
+                le.minWidth = width;
+                le.preferredHeight = height;
+                le.minHeight = height;
+            };
+
+            // 横並びの幅を指定してレイアウト適用
+            setupLayoutElement(suggPanelGo, 260f, 60f); // 漢字リスト
+            setupLayoutElement(qInputFieldGo?.gameObject, 180f, 50f); // テキストボックス
+            setupLayoutElement(plannedBoxGo, 80f, 50f); // 出力予定ボックス
+            setupLayoutElement(addBtnGoObj, 120f, 50f); // 決定ボタン
+            setupLayoutElement(completeBtnGoObj, 120f, 50f); // 完成ボタン
+
+            // 横並び順を並び順と一致させる
+            if (suggPanelGo != null) suggPanelGo.transform.SetAsLastSibling();
+            if (qInputFieldGo != null) qInputFieldGo.transform.SetAsLastSibling();
+            if (plannedBoxGo != null) plannedBoxGo.transform.SetAsLastSibling();
+            if (addBtnGoObj != null) addBtnGoObj.transform.SetAsLastSibling();
+            if (completeBtnGoObj != null) completeBtnGoObj.transform.SetAsLastSibling();
+
+            // 漢字リスト内のスクロールビュー領域のストレッチ設定
+            if (suggPanelGo != null)
+            {
+                var scrollViewTrans = suggPanelGo.transform.Find("Scroll View");
+                if (scrollViewTrans != null)
+                {
+                    var svRect = scrollViewTrans.GetComponent<RectTransform>();
+                    svRect.anchorMin = Vector2.zero;
+                    svRect.anchorMax = Vector2.one;
+                    svRect.sizeDelta = Vector2.zero;
+                    svRect.anchoredPosition = Vector2.zero;
+                }
+            }
+
             if (addBtnGo != null) serializedQ.FindProperty("_addKanjiButton").objectReferenceValue = addBtnGo;
-            var completeBtnGo = qPanelGo.transform.Find("CompleteButton")?.GetComponent<Button>();
             if (completeBtnGo != null) serializedQ.FindProperty("_completeButton").objectReferenceValue = completeBtnGo;
+
             var countTextGo = qPanelGo.transform.Find("KanjiCountText")?.GetComponent<TextMeshProUGUI>();
             if (countTextGo != null) serializedQ.FindProperty("_kanjiCountText").objectReferenceValue = countTextGo;
             var ansTextGo = qPanelGo.transform.Find("ResultPanel/AnswererAnswerText")?.GetComponent<TextMeshProUGUI>();
             if (ansTextGo != null) serializedQ.FindProperty("_answererAnswerText").objectReferenceValue = ansTextGo;
 
-            var suggPanelGo = qPanelGo.transform.Find("SuggestionPanel")?.gameObject;
             if (suggPanelGo != null) serializedQ.FindProperty("_suggestionPanel").objectReferenceValue = suggPanelGo;
-            var suggContentRect = qPanelGo.transform.Find("SuggestionPanel/Scroll View/Viewport/Content")?.GetComponent<RectTransform>();
+            var suggContentRect = suggPanelGo?.transform.Find("Scroll View/Viewport/Content")?.GetComponent<RectTransform>();
             if (suggContentRect != null) serializedQ.FindProperty("_suggestionContent").objectReferenceValue = suggContentRect;
 
-            var flipper = GameObject.FindObjectOfType<KanjiFlipper>();
-            if (flipper != null) serializedQ.FindProperty("_kanjiFlipper").objectReferenceValue = flipper;
+            var tmFont = AssetDatabase.LoadAssetAtPath<TMPro.TMP_FontAsset>("Assets/Fonts/NotoSansJP_Kanji SDF.asset");
+            if (tmFont != null)
+            {
+                serializedQ.FindProperty("_fontAsset").objectReferenceValue = tmFont;
+            }
+
+            var flipperGo = qPanelGo.transform.Find("FlipCanvas")?.gameObject;
+            var flipper = flipperGo?.GetComponent<KanjiFlipper>();
+            if (flipper != null)
+            {
+                serializedQ.FindProperty("_kanjiFlipper").objectReferenceValue = flipper;
+
+                // KanjiFlipper に _kanjiElementPrefab を自動設定
+                var serializedFlipper = new SerializedObject(flipper);
+                var prefabProp = serializedFlipper.FindProperty("_kanjiElementPrefab");
+                if (prefabProp != null && prefabProp.objectReferenceValue == null)
+                {
+                    var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/KanjiElement.prefab");
+                    if (prefab != null)
+                    {
+                        // Ensure RectTransform exists on prefab root
+                        var rt = prefab.GetComponent<RectTransform>();
+                        if (rt == null)
+                        {
+                            rt = prefab.AddComponent<RectTransform>();
+                            rt.anchorMin = new Vector2(0.5f, 0.5f);
+                            rt.anchorMax = new Vector2(0.5f, 0.5f);
+                            rt.pivot = new Vector2(0.5f, 0.5f);
+                            rt.sizeDelta = new Vector2(100, 100);
+                            Debug.Log("Added missing RectTransform to KanjiElement prefab during UIBuilder fix.");
+                        }
+                        prefabProp.objectReferenceValue = prefab;
+                        serializedFlipper.ApplyModifiedProperties();
+                        Debug.Log("KanjiElement prefab automatically assigned to KanjiFlipper.");
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to automatically load Assets/Prefabs/KanjiElement.prefab!");
+                    }
+                }
+            }
             var validator = GameObject.FindObjectOfType<KanjiInputValidator>();
             if (validator != null) serializedQ.FindProperty("_kanjiInputValidator").objectReferenceValue = validator;
 
@@ -345,6 +673,49 @@ public static class UIBuilder
             inputPanelRect.sizeDelta = Vector2.zero;
         }
 
+        // 回答者用の FlipArea (ホワイトボード背景) の作成・取得
+        var ansFlipAreaGo = inputPanelGo.transform.Find("FlipArea")?.gameObject;
+        if (ansFlipAreaGo == null)
+        {
+            ansFlipAreaGo = new GameObject("FlipArea", typeof(RectTransform), typeof(Image));
+            ansFlipAreaGo.transform.SetParent(inputPanelGo.transform, false);
+            var rect = ansFlipAreaGo.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.02f, 0.32f);
+            rect.anchorMax = new Vector2(0.98f, 0.85f);
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+            ansFlipAreaGo.GetComponent<Image>().color = new Color(0.9f, 0.9f, 0.9f, 1f); // 明るいグレー
+        }
+
+        // 回答者用の FlipCanvas の作成・取得
+        var ansFlipCanvasGo = inputPanelGo.transform.Find("FlipCanvas")?.gameObject;
+        if (ansFlipCanvasGo == null)
+        {
+            ansFlipCanvasGo = new GameObject("FlipCanvas", typeof(RectTransform), typeof(KanjiFlipper));
+            ansFlipCanvasGo.transform.SetParent(inputPanelGo.transform, false);
+            var rect = ansFlipCanvasGo.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.02f, 0.32f);
+            rect.anchorMax = new Vector2(0.98f, 0.85f);
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+        }
+
+        var ansFlipper = ansFlipCanvasGo.GetComponent<KanjiFlipper>();
+        // _kanjiElementPrefab と _flipCanvas を設定
+        var serializedAnsFlipper = new SerializedObject(ansFlipper);
+        var prefabPropAns = serializedAnsFlipper.FindProperty("_kanjiElementPrefab");
+        if (prefabPropAns != null)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/KanjiElement.prefab");
+            prefabPropAns.objectReferenceValue = prefab;
+        }
+        var flipCanvasPropAns = serializedAnsFlipper.FindProperty("_flipCanvas");
+        if (flipCanvasPropAns != null)
+        {
+            flipCanvasPropAns.objectReferenceValue = ansFlipCanvasGo.GetComponent<RectTransform>();
+        }
+        serializedAnsFlipper.ApplyModifiedProperties();
+
         // タイマーテキスト
         var timerTextGo = inputPanelGo.transform.Find("TimerText")?.gameObject;
         if (timerTextGo == null)
@@ -437,8 +808,6 @@ public static class UIBuilder
         var submitBtn = submitBtnGo.GetComponent<Button>();
 
         // 参照の設定
-        var flipperAns = GameObject.FindObjectOfType<KanjiFlipper>();
-
         var serializedObj = new SerializedObject(answererUI);
         serializedObj.FindProperty("_answererPanel").objectReferenceValue = inputPanelGo;
         serializedObj.FindProperty("_waitingPanel").objectReferenceValue = waitingPanelGo;
@@ -448,7 +817,7 @@ public static class UIBuilder
         serializedObj.FindProperty("_submitAnswerButton").objectReferenceValue = submitBtn;
         serializedObj.FindProperty("_resultText").objectReferenceValue = resText;
         serializedObj.FindProperty("_timerText").objectReferenceValue = timerText;
-        serializedObj.FindProperty("_kanjiFlipper").objectReferenceValue = flipperAns;
+        serializedObj.FindProperty("_kanjiFlipper").objectReferenceValue = ansFlipper;
         serializedObj.ApplyModifiedProperties();
 
         // 日本語フォントアセットの設定
@@ -471,6 +840,43 @@ public static class UIBuilder
         resultPanelGo.SetActive(false);
         inputPanelGo.SetActive(false);
 
+        // MainCanvasの直下にあるResultPanel（もし存在すれば）を初期非アクティブにする
+        var globalResultPanel = canvas.transform.Find("ResultPanel")?.gameObject;
+        if (globalResultPanel != null)
+        {
+            globalResultPanel.SetActive(false);
+
+            // Ensure PlayerCountText exists under RoomWaitingPanel and assign it
+            var waitingPanel = canvas.transform.Find("RoomWaitingPanel")?.gameObject;
+            if (waitingPanel != null)
+            {
+                var countText = waitingPanel.transform.Find("PlayerCountText")?.GetComponent<TMPro.TextMeshProUGUI>();
+                if (countText == null)
+                {
+                    var go = new GameObject("PlayerCountText", typeof(RectTransform), typeof(TMPro.TextMeshProUGUI));
+                    go.transform.SetParent(waitingPanel.transform, false);
+                    var rect = go.GetComponent<RectTransform>();
+                    rect.anchorMin = new Vector2(0.1f, 0.8f);
+                    rect.anchorMax = new Vector2(0.9f, 0.9f);
+                    rect.sizeDelta = Vector2.zero;
+                    var tmp = go.GetComponent<TMPro.TextMeshProUGUI>();
+                    tmp.text = "参加人数: 0 人";
+                    tmp.fontSize = 28;
+                    tmp.alignment = TMPro.TextAlignmentOptions.Center;
+                    tmp.color = Color.white;
+                    countText = tmp;
+                }
+                var menu = canvas.GetComponent<KanjiFlipGame.UI.MainMenuUI>();
+                if (menu != null)
+                {
+                    var serializedMenu = new SerializedObject(menu);
+                    serializedMenu.FindProperty("_playerCountText").objectReferenceValue = countText;
+                    serializedMenu.ApplyModifiedProperties();
+                }
+            }
+            Debug.Log("Global ResultPanel set to inactive.");
+        }
+
         // 保存
         EditorSceneManager.MarkSceneDirty(canvas.scene);
         EditorSceneManager.SaveScene(canvas.scene);
@@ -482,10 +888,15 @@ public static class UIBuilder
     {
         var canvas = GameObject.Find("MainCanvas");
         if (canvas == null) return "Canvas not found";
+
+        var globalResult = canvas.transform.Find("ResultPanel")?.gameObject;
+        string globalResultStatus = globalResult != null ? ("ResultPanel Active: " + globalResult.activeSelf) : "ResultPanel not found";
+
         var menu = canvas.GetComponent<MainMenuUI>();
-        if (menu == null) return "MainMenuUI not found";
+        if (menu == null) return globalResultStatus + "\nMainMenuUI not found";
         var serialized = new SerializedObject(menu);
-        return "_mainMenuPanel: " + (serialized.FindProperty("_mainMenuPanel").objectReferenceValue != null ? serialized.FindProperty("_mainMenuPanel").objectReferenceValue.name : "null") + "\n" +
+        return globalResultStatus + "\n" +
+               "_mainMenuPanel: " + (serialized.FindProperty("_mainMenuPanel").objectReferenceValue != null ? serialized.FindProperty("_mainMenuPanel").objectReferenceValue.name : "null") + "\n" +
                "_selectionPanel: " + (serialized.FindProperty("_selectionPanel").objectReferenceValue != null ? serialized.FindProperty("_selectionPanel").objectReferenceValue.name : "null") + "\n" +
                "_friendMatchModePanel: " + (serialized.FindProperty("_friendMatchModePanel").objectReferenceValue != null ? serialized.FindProperty("_friendMatchModePanel").objectReferenceValue.name : "null") + "\n" +
                "_friendMatchInputPanel: " + (serialized.FindProperty("_friendMatchInputPanel").objectReferenceValue != null ? serialized.FindProperty("_friendMatchInputPanel").objectReferenceValue.name : "null") + "\n" +
@@ -713,6 +1124,52 @@ public static class UIBuilder
         {
             DumpTransform(t.GetChild(i), sb, indent + "  ");
         }
+    }
+
+    public static string CheckKanjiFlipper()
+    {
+        var flippers = GameObject.FindObjectsOfType<KanjiFlipper>();
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("Found " + flippers.Length + " KanjiFlipper(s):");
+        foreach (var f in flippers)
+        {
+            var flipCanvas = f.GetType().GetField("_flipCanvas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(f) as RectTransform;
+            sb.AppendLine("- GameObject: " + f.gameObject.name + ", active: " + f.gameObject.activeInHierarchy + ", _flipCanvas: " + (flipCanvas != null ? flipCanvas.name : "null"));
+        }
+        return sb.ToString();
+    }
+
+    public static void DumpPrefabCLI()
+    {
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/KanjiElement.prefab");
+        if (prefab == null)
+        {
+            Debug.LogError("Prefab not found!");
+            return;
+        }
+        var sb = new System.Text.StringBuilder();
+        DumpTransform(prefab.transform, sb, "");
+        var text = prefab.GetComponentInChildren<TextMeshProUGUI>(true);
+        if (text != null)
+        {
+            sb.AppendLine("=== TextMeshProUGUI ===");
+            sb.AppendLine("text: " + text.text);
+            sb.AppendLine("fontSize: " + text.fontSize);
+            sb.AppendLine("color: " + text.color);
+            sb.AppendLine("font: " + (text.font != null ? text.font.name : "null"));
+            sb.AppendLine("alignment: " + text.alignment);
+            var rt = text.GetComponent<RectTransform>();
+            sb.AppendLine("RectTransform sizeDelta: " + rt.sizeDelta);
+            sb.AppendLine("RectTransform localScale: " + rt.localScale);
+        }
+        System.IO.File.WriteAllText("prefab_dump.txt", sb.ToString());
+    }
+
+    public static void CheckKanjiFlipperCLI()
+    {
+        UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/GameScene.unity/GameScene.unity");
+        string result = CheckKanjiFlipper();
+        System.IO.File.WriteAllText("flipper_check.txt", result);
     }
 }
 #endif

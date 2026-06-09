@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
@@ -114,12 +114,20 @@ namespace KanjiFlipGame.Kanji
         public List<KanjiInfo> SearchKanji(string reading, bool sortByStrokeCount = false)
         {
             if (!_isInitialized) Initialize();
-            if (string.IsNullOrEmpty(reading)) return new List<KanjiInfo>();
 
-            // 読み（ひらがな/カタカナ）の部分一致検索
-            var results = _kanjiDictionary.Where(k => 
-                k.readings.Any(r => r.Contains(reading))
-            ).ToList();
+            List<KanjiInfo> results;
+            if (string.IsNullOrEmpty(reading))
+            {
+                results = _kanjiDictionary.ToList();
+                sortByStrokeCount = true; // 空文字のときは強制的に画数順にする
+            }
+            else
+            {
+                // 読み（ひらがな/カタカナ）の部分一致検索
+                results = _kanjiDictionary.Where(k => 
+                    k.readings.Any(r => r.Contains(reading))
+                ).ToList();
+            }
 
             if (sortByStrokeCount)
             {

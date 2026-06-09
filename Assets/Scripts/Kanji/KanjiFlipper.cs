@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace KanjiFlipGame.Kanji
 {
@@ -13,6 +14,7 @@ namespace KanjiFlipGame.Kanji
         [SerializeField] private int _maxKanjiCount = 8;
         [SerializeField] private GameObject _kanjiElementPrefab;
         [SerializeField] private RectTransform _flipCanvas;
+        [SerializeField] private TMP_FontAsset _kanjiFontAsset; // NotoSansJP_Full SDF を設定
 
         private List<KanjiElement> _kanjiElements = new List<KanjiElement>();
 
@@ -36,8 +38,10 @@ namespace KanjiFlipGame.Kanji
 
             if (kanjiElement != null)
             {
+                // フォントを先に設定してから文字をセット（順序重要）
+                if (_kanjiFontAsset != null) kanjiElement.SetFont(_kanjiFontAsset);
                 kanjiElement.SetKanji(kanji);
-                
+
                 // 中央付近にランダム配置
                 float randomX = Random.Range(-200f, 200f);
                 float randomY = Random.Range(-150f, 150f);
@@ -46,6 +50,7 @@ namespace KanjiFlipGame.Kanji
                 _kanjiElements.Add(kanjiElement);
                 Debug.Log("漢字「" + kanji + "」をローカルで追加しました");
             }
+
 
             return kanjiElement;
         }

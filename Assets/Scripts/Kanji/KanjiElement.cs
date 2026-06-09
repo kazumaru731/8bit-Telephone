@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -23,6 +23,7 @@ namespace KanjiFlipGame.Kanji
         [SerializeField] private float _minFontSize = 30f;
         [SerializeField] private float _maxFontSize = 400f;
         [SerializeField] private float _rotationStep = 15f;
+        [SerializeField] private TMP_FontAsset _kanjiFontAsset; // Inspectorで漢字対応フォントを設定
 
         private RectTransform _rectTransform;
         private Canvas _parentCanvas;
@@ -39,14 +40,39 @@ namespace KanjiFlipGame.Kanji
 
         void Awake()
         {
+            // Ensure the GameObject has a RectTransform for UI positioning.
             _rectTransform = GetComponent<RectTransform>();
+            if (_rectTransform == null)
+            {
+                _rectTransform = gameObject.AddComponent<RectTransform>();
+                _rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                _rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                _rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                _rectTransform.sizeDelta = new Vector2(100, 100);
+            }
             _parentCanvas = GetComponentInParent<Canvas>();
             _flipper = GetComponentInParent<KanjiFlipper>();
-            if (_kanjiText == null) _kanjiText = GetComponentInChildren<TextMeshProUGUI>();
-            
+
+            // 名前で正確に KanjiText を取得（複数TMP存在時の誤取得を防ぐ）
+            if (_kanjiText == null)
+            {
+                var kanjiTextObj = transform.Find("KanjiText");
+                if (kanjiTextObj != null)
+                    _kanjiText = kanjiTextObj.GetComponent<TextMeshProUGUI>();
+            }
+            // それでも見つからない場合はフォールバック
+            if (_kanjiText == null)
+                _kanjiText = GetComponentInChildren<TextMeshProUGUI>();
+
+            if (_kanjiText != null)
+                Debug.Log($"KanjiElement Awake: _kanjiText='{_kanjiText.gameObject.name}', font='{(_kanjiText.font != null ? _kanjiText.font.name : "null")}'");
+            else
+                Debug.LogWarning("KanjiElement Awake: _kanjiText が見つかりません！");
+
             EnsureMobileUI();
             UpdateFontSize();
         }
+
 
         private void EnsureMobileUI()
         {
@@ -137,8 +163,35 @@ namespace KanjiFlipGame.Kanji
             }
         }
 
-        public void SetKanji(string kanji) { if (_kanjiText != null) _kanjiText.text = kanji; }
+        public void SetKanji(string kanji)
+        {
+            if (_kanjiText != null)
+            {
+                _kanjiText.text = kanji;
+                Debug.Log($"KanjiElement SetKanji: '{kanji}', font='{(_kanjiText.font != null ? _kanjiText.font.name : "null")}', color={_kanjiText.color}");
+            }
+            else
+            {
+                Debug.LogWarning($"KanjiElement SetKanji: _kanjiText が null です！漢字='{kanji}'");
+            }
+        }
         public string GetKanji() => _kanjiText != null ? _kanjiText.text : string.Empty;
+        public void SetFont(TMP_FontAsset fontAsset) 
+        { 
+            if (_kanjiText != null && fontAsset != null) 
+            {
+                _kanjiText.font = fontAsset;
+                // フォント変更後にテキストを再設定してTMPに再描画を促す
+                var current = _kanjiText.text;
+                _kanjiText.text = "";
+                _kanjiText.text = current;
+                Debug.Log("KanjiElement SetFont: フォントを設定しました: " + fontAsset.name);
+            }
+            else
+            {
+                Debug.LogWarning($"KanjiElement SetFont: _kanjiText={_kanjiText != null}, fontAsset={fontAsset != null}");
+            }
+        }
 
         #region UIイベント
         public void OnBeginDrag(PointerEventData eventData)
@@ -182,12 +235,24 @@ namespace KanjiFlipGame.Kanji
             if (_kanjiText != null) _kanjiText.color = Color.black;
         }
 
-        private void Rotate(float angle) { _rectTransform.Rotate(0, 0, angle); }
+        private void Rotate(float angle) { RectTransform.Rotate(0, 0, angle); }
         private void DeleteSelf() { if (_flipper != null) _flipper.RemoveKanji(this); else Destroy(gameObject); }
         #endregion
 
-        public Vector2 Position { get => _rectTransform.anchoredPosition; set => _rectTransform.anchoredPosition = value; }
-        public float Rotation { get => _rectTransform.eulerAngles.z; set => _rectTransform.eulerAngles = new Vector3(0, 0, value); }
+        private RectTransform RectTransform
+        {
+            get
+            {
+                if (_rectTransform == null)
+                {
+                    _rectTransform = GetComponent<RectTransform>();
+                }
+                return _rectTransform;
+            }
+        }
+
+        public Vector2 Position { get => RectTransform.anchoredPosition; set => RectTransform.anchoredPosition = value; }
+        public float Rotation { get => RectTransform.eulerAngles.z; set => RectTransform.eulerAngles = new Vector3(0, 0, value); }
         public float FontSize { get => _currentFontSize; set { _currentFontSize = Mathf.Clamp(value, _minFontSize, _maxFontSize); UpdateFontSize(); } }
 
         private void UpdateFontSize() { if (_kanjiText != null) _kanjiText.fontSize = _currentFontSize; }

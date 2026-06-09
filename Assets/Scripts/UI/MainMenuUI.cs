@@ -13,6 +13,7 @@ namespace KanjiFlipGame.UI
     public class MainMenuUI : MonoBehaviour
     {
         [Header("Panels")]
+        [SerializeField] private GameObject _mainMenuPanel;
         [SerializeField] private GameObject _selectionPanel;
         [SerializeField] private GameObject _friendMatchModePanel; // ホスト/ゲスト選択
         [SerializeField] private GameObject _friendMatchInputPanel; // ID入力
@@ -24,6 +25,8 @@ namespace KanjiFlipGame.UI
         [Header("Selection Buttons")]
         [SerializeField] private Button _randomMatchButton;
         [SerializeField] private Button _friendMatchMenuButton;
+
+        private Button _localTestButton;
 
         [Header("Friend Match Mode Buttons")]
         [SerializeField] private Button _hostMatchButton;
@@ -56,25 +59,126 @@ namespace KanjiFlipGame.UI
 
         private SessionInfo _foundSession;
         private bool _isFriendMatch = false;
+        private bool _isInitialized = false;
+        private bool _hasAutoReadied = false;
+        private bool _hasAutoStarted = false;
 
         void OnEnable()
         {
             Debug.Log($"MainMenuUI: OnEnable() called. GameObject: {gameObject.name}");
-            InitializeUI();
+            // すでに初期化済みの場合はボタンリスナーの再登録のみ行い、パネル状態は変更しない
+            if (_isInitialized)
+            {
+                RegisterButtonListeners();
+                return;
+            }
         }
 
         void Start()
         {
             Debug.Log("MainMenuUI: Start() called");
-            // Startでも初期化（念のため）
             InitializeUI();
+            _isInitialized = true;
+
+            if (IsTestMode())
+            {
+                Invoke(nameof(AutoStartMatch), 1.5f);
+            }
         }
 
+        private bool IsTestMode()
+        {
+            var args = System.Environment.GetCommandLineArgs();
+            // -runAutoTest の自動テスト中は、通常のデモ用自動起動をバイパスする
+            if (args.Contains("-runAutoTest")) return false;
+            return args.Contains("-testMode");
+        }
+
+        private void AutoStartMatch()
+        {
+            Debug.Log("[TestMode] 自動でランダムマッチを開始します...");
+            OnRandomMatchClicked();
+        }
+
+        /// <summary>
+        /// 完全初期化（Start()から1度だけ呼ぶ）
+        /// </summary>
         private void InitializeUI()
         {
             Debug.Log("MainMenuUI: Initializing UI...");
-            // ボタンイベントの登録
-            // (Remove existing first to avoid duplicates)
+            RegisterButtonListeners();
+            CreateLocalTestButton();
+
+            // ネットワークイベントの登録
+            if (NetworkLauncher.Instance != null)
+            {
+                NetworkLauncher.Instance.OnFriendRoomFound -= OnFriendRoomFound;
+                NetworkLauncher.Instance.OnFriendRoomFound += OnFriendRoomFound;
+                NetworkLauncher.Instance.OnFriendRoomNotFound -= OnFriendRoomNotFound;
+                NetworkLauncher.Instance.OnFriendRoomNotFound += OnFriendRoomNotFound;
+            }
+
+            // 初期パネル表示: すでに接続中（シーン再ロード後）ならWaitingPanelを復元
+            bool isConnected = NetworkLauncher.Instance != null && NetworkLauncher.Instance.Runner != null;
+            if (isConnected)
+            {
+                // シーン再ロード後のリカバリ: 待機画面を復元
+                ShowPanel(_roomWaitingPanel);
+                Debug.Log("MainMenuUI: シーン再ロード後の復元 - RoomWaitingPanelを表示");
+            }
+            else
+            {
+                ShowPanel(_selectionPanel);
+            }
+            if (_confirmationDialog != null) _confirmationDialog.SetActive(false);
+            if (_consentDialog != null) _consentDialog.SetActive(false);
+            if (_startGameButton != null) _startGameButton.gameObject.SetActive(false);
+            
+            Debug.Log($"MainMenuUI: Initial panel set to {(isConnected ? _roomWaitingPanel?.name : _selectionPanel?.name)}");
+        }
+
+        private void CreateLocalTestButton()
+        {
+            if (_friendMatchMenuButton == null) return;
+
+            // FriendMatchMenuButtonをベースに複製する
+            GameObject testBtnGo = Instantiate(_friendMatchMenuButton.gameObject, _friendMatchMenuButton.transform.parent);
+            testBtnGo.name = "LocalTestButton";
+
+            var textComp = testBtnGo.GetComponentInChildren<TextMeshProUGUI>();
+            if (textComp != null)
+            {
+                textComp.text = "1人テストプレイ";
+            }
+
+            _localTestButton = testBtnGo.GetComponent<Button>();
+            _localTestButton.onClick.RemoveAllListeners();
+            _localTestButton.onClick.AddListener(OnLocalTestPlayClicked);
+
+            var parentLayout = _friendMatchMenuButton.transform.parent.GetComponent<LayoutGroup>();
+            if (parentLayout == null)
+            {
+                var rectTrans = testBtnGo.GetComponent<RectTransform>();
+                var origRect = _friendMatchMenuButton.GetComponent<RectTransform>();
+                rectTrans.anchoredPosition = origRect.anchoredPosition + new Vector2(0, -100f);
+            }
+        }
+
+        private void OnLocalTestPlayClicked()
+        {
+            Debug.Log("MainMenuUI: LocalTestPlayClicked");
+            _isFriendMatch = true; // フレンドマッチ扱いにし、自動マッチングは走らせない
+            GameManager.IsLocalTestModeRequested = true;
+            NetworkLauncher.Instance.StartFriendMatch("LOCAL_TEST_ROOM", PlayerRole.None, GameMode.Host);
+            ShowWaitingPanel("1人テストモード待機中...\nルームID: LOCAL_TEST_ROOM");
+            if (_roomIdText != null) _roomIdText.text = "ROOM ID: LOCAL_TEST_ROOM";
+        }
+
+        /// <summary>
+        /// ボタンリスナーの登録（OnEnable/Startから呼ばれる）
+        /// </summary>
+        private void RegisterButtonListeners()
+        {
             if (_randomMatchButton != null)
             {
                 _randomMatchButton.onClick.RemoveAllListeners();
@@ -151,71 +255,98 @@ namespace KanjiFlipGame.UI
                 _leaveRoomButton.onClick.RemoveAllListeners();
                 _leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
             }
-
-            // ネットワークイベントの登録
-            if (NetworkLauncher.Instance != null)
-            {
-                NetworkLauncher.Instance.OnFriendRoomFound -= OnFriendRoomFound;
-                NetworkLauncher.Instance.OnFriendRoomFound += OnFriendRoomFound;
-                NetworkLauncher.Instance.OnFriendRoomNotFound -= OnFriendRoomNotFound;
-                NetworkLauncher.Instance.OnFriendRoomNotFound += OnFriendRoomNotFound;
-            }
-
-            // 初期状態
-            ShowPanel(_selectionPanel);
-            if (_confirmationDialog != null) _confirmationDialog.SetActive(false);
-            if (_consentDialog != null) _consentDialog.SetActive(false);
-            
-            Debug.Log($"MainMenuUI: Initial panel set to {_selectionPanel?.name}");
         }
 
         private void Update()
         {
             if (GameManager.Instance == null) return;
 
-            // Runnerがいない間は初期画面を維持
-            if (NetworkLauncher.Instance.Runner == null)
+            // RunnerやLocalPlayerが有効になるまでは初期画面を維持
+            if (NetworkLauncher.Instance == null || NetworkLauncher.Instance.Runner == null || NetworkLauncher.Instance.Runner.LocalPlayer == PlayerRef.None)
             {
                 return;
             }
 
-            // 待機画面の更新
-            if (_roomWaitingPanel.activeSelf)
+            // GameManagerがネットワーク上にスポーンされ、初期化が完了するまでは同期処理や状態監視を行わない
+            if (GameManager.Instance.Object == null || !GameManager.Instance.Object.IsValid || !GameManager.Instance.IsSpawnedCompleted)
             {
-                int playerCount = NetworkLauncher.Instance.Runner.ActivePlayers.Count();
-                _playerCountText.text = $"参加人数: {playerCount} 人";
+                return;
+            }
 
-                bool isReady = GameManager.Instance.IsPlayerReady(NetworkLauncher.Instance.Runner.LocalPlayer);
-                _readyButtonText.text = isReady ? "準備解除" : "準備完了";
+            try
+            {
+                bool isLocalTest = GameManager.Instance.IsLocalTestMode;
 
-                // ホストの開始ボタン制御
-                bool isMaster = NetworkLauncher.Instance.IsMaster;
-                if (isMaster)
+                // 待機画面の更新
+                if (_roomWaitingPanel.activeSelf)
                 {
-                    bool allReady = true;
-                    foreach (var p in NetworkLauncher.Instance.Runner.ActivePlayers)
+                    var activePlayers = NetworkLauncher.Instance.Runner.ActivePlayers.ToList();
+                    int playerCount = activePlayers.Count;
+                    _playerCountText.text = $"参加人数: {playerCount} 人";
+
+                    bool isReady = GameManager.Instance.IsPlayerReady(NetworkLauncher.Instance.Runner.LocalPlayer);
+                    _readyButtonText.text = isReady ? "準備解除" : "準備完了";
+
+                    // テストモード時の自動準備完了
+                    if (IsTestMode() && !isReady && !_hasAutoReadied)
                     {
-                        if (!GameManager.Instance.IsPlayerReady(p)) { allReady = false; break; }
+                        Debug.Log("[TestMode] 自動で準備完了にします...");
+                        _hasAutoReadied = true;
+                        OnReadyClicked();
                     }
-                    _startGameButton.gameObject.SetActive(true);
-                    _startGameButton.interactable = allReady;
+
+                    // ホストの開始ボタン制御
+                    bool isMaster = NetworkLauncher.Instance.IsMaster;
+                    if (isMaster)
+                    {
+                        bool allReady = true;
+                        if (isLocalTest)
+                        {
+                            allReady = isReady; // 1人テストプレイ時は自分が準備完了なら開始可能
+                        }
+                        else
+                        {
+                            foreach (var p in activePlayers)
+                            {
+                                if (!GameManager.Instance.IsPlayerReady(p)) { allReady = false; break; }
+                            }
+                        }
+                        _startGameButton.gameObject.SetActive(true);
+                        _startGameButton.interactable = allReady;
+
+                        // テストモード時の自動ゲーム開始
+                        if (IsTestMode() && allReady && !_hasAutoStarted)
+                        {
+                            Debug.Log("[TestMode] 全員準備完了のため、自動でゲームを開始します...");
+                            _hasAutoStarted = true;
+                            OnStartGameButtonClicked();
+                        }
+                    }
+                    else
+                    {
+                        _startGameButton.gameObject.SetActive(false);
+                    }
+
+                    // 4人未満同意ダイアログの表示チェック（ランダムマッチかつ全員準備完了時）
+                    if (!isLocalTest && !_isFriendMatch && GameManager.Instance.CurrentState == GameState.Lobby)
+                    {
+                        CheckConsentDialog(playerCount);
+                    }
+                }
+
+                // ゲーム開始検知
+                if (GameManager.Instance.CurrentState != GameState.Lobby && GameManager.Instance.CurrentState != GameState.Waiting)
+                {
+                    if (_mainMenuPanel != null) _mainMenuPanel.SetActive(false);
                 }
                 else
                 {
-                    _startGameButton.gameObject.SetActive(false);
-                }
-
-                // 4人未満同意ダイアログの表示チェック（ランダムマッチかつ全員準備完了時）
-                if (!_isFriendMatch && GameManager.Instance.CurrentState == GameState.Lobby)
-                {
-                    CheckConsentDialog(playerCount);
+                    if (_mainMenuPanel != null) _mainMenuPanel.SetActive(true);
                 }
             }
-
-            // ゲーム開始検知
-            if (GameManager.Instance.CurrentState != GameState.Lobby && GameManager.Instance.CurrentState != GameState.Waiting)
+            catch (System.Exception ex)
             {
-                gameObject.SetActive(false);
+                Debug.LogError($"MainMenuUI.Update()で例外が発生しました: {ex.Message}\n{ex.StackTrace}");
             }
         }
 
@@ -233,6 +364,48 @@ namespace KanjiFlipGame.UI
         private void OnRandomMatchClicked()
         {
             Debug.Log("MainMenuUI: RandomMatchButton clicked");
+            
+            if (_confirmationDialog == null)
+            {
+                StartNormalRandomMatch();
+                return;
+            }
+
+            _confirmText.text = "プレイモードを選択してください。";
+            
+            var confirmTextComp = _confirmJoinButton.GetComponentInChildren<TextMeshProUGUI>();
+            string originalConfirmText = confirmTextComp != null ? confirmTextComp.text : "参加";
+            if (confirmTextComp != null) confirmTextComp.text = "対戦マッチ";
+
+            _confirmJoinButton.onClick.RemoveAllListeners();
+            _confirmJoinButton.onClick.AddListener(() => {
+                if (confirmTextComp != null) confirmTextComp.text = originalConfirmText;
+                _confirmationDialog.SetActive(false);
+                StartNormalRandomMatch();
+            });
+
+            var cancelTextComp = _cancelJoinButton.GetComponentInChildren<TextMeshProUGUI>();
+            string originalCancelText = cancelTextComp != null ? cancelTextComp.text : "キャンセル";
+            if (cancelTextComp != null) cancelTextComp.text = "1人テスト";
+
+            _cancelJoinButton.onClick.RemoveAllListeners();
+            _cancelJoinButton.onClick.AddListener(() => {
+                if (confirmTextComp != null) confirmTextComp.text = originalConfirmText;
+                if (cancelTextComp != null) cancelTextComp.text = originalCancelText;
+                _confirmationDialog.SetActive(false);
+                
+                // 元のボタン動作を復元
+                RegisterButtonListeners();
+                
+                OnLocalTestPlayClicked();
+            });
+
+            _confirmationDialog.SetActive(true);
+        }
+
+        private void StartNormalRandomMatch()
+        {
+            RegisterButtonListeners();
             _isFriendMatch = false;
             NetworkLauncher.Instance.StartRandomMatch(PlayerRole.None);
             ShowWaitingPanel("ランダムマッチング中...");
@@ -299,6 +472,11 @@ namespace KanjiFlipGame.UI
 
         private void OnReadyClicked()
         {
+            if (GameManager.Instance == null || GameManager.Instance.Object == null || !GameManager.Instance.Object.IsValid)
+            {
+                Debug.LogWarning("GameManager is not spawned yet.");
+                return;
+            }
             var player = NetworkLauncher.Instance.Runner.LocalPlayer;
             bool currentReady = GameManager.Instance.IsPlayerReady(player);
             GameManager.Instance.RPC_SetReady(player, !currentReady);
@@ -334,6 +512,11 @@ namespace KanjiFlipGame.UI
         private void OnConsentClicked(bool agreed)
         {
             _consentDialog.SetActive(false);
+            if (GameManager.Instance == null || GameManager.Instance.Object == null || !GameManager.Instance.Object.IsValid)
+            {
+                Debug.LogWarning("GameManager is not spawned yet.");
+                return;
+            }
             if (agreed)
             {
                 GameManager.Instance.RPC_SetConsent(NetworkLauncher.Instance.Runner.LocalPlayer, true);
@@ -347,6 +530,11 @@ namespace KanjiFlipGame.UI
 
         public void OnStartGameButtonClicked()
         {
+            if (GameManager.Instance == null || GameManager.Instance.Object == null || !GameManager.Instance.Object.IsValid)
+            {
+                Debug.LogWarning("GameManager is not spawned yet.");
+                return;
+            }
             GameManager.Instance.Host_StartGame();
         }
 

@@ -1126,6 +1126,7 @@ MonoBehaviour:
   _minFontSize: 30
   _maxFontSize: 150
   _rotationStep: 15
+  _kanjiFontAsset: {fileID: 0}
 --- !u!114 &5607566791034187953
 MonoBehaviour:
   m_ObjectHideFlags: 0

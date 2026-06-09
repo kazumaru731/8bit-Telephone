@@ -14,6 +14,11 @@ namespace KanjiFlipGame.Core
     {
         public static GameManager Instance { get; private set; }
 
+        public static bool IsLocalTestModeRequested { get; set; } = false;
+
+        [Networked]
+        public NetworkBool IsLocalTestMode { get; set; } = false;
+
         [Networked, OnChangedRender(nameof(OnTopicChangedInternal))]
         public string CurrentTopic { get; set; } = "";
 
@@ -38,6 +43,15 @@ namespace KanjiFlipGame.Core
         [Networked, Capacity(8)]
         public NetworkDictionary<PlayerRef, NetworkBool> PlayerConsentStates => default;
 
+        [Networked, Capacity(8)]
+        public NetworkArray<PlayerRef> AnswererOrder => default;
+
+        [Networked]
+        public int AnswererIndex { get; set; } = -1;
+
+        [Networked]
+        public int TotalAnswerersCount { get; set; } = 0;
+
         // 出題キュー（Shared ModeなのでRPC経由で管理）
         private List<SubmittedFlip> _submissionQueue = new List<SubmittedFlip>();
         
@@ -49,6 +63,11 @@ namespace KanjiFlipGame.Core
 
         // ローカルプレイヤーの役割
         private PlayerRole _localPlayerRole = PlayerRole.None;
+
+        /// <summary>
+        /// ネットワーク上のSpawned()コールバックが完了したかどうか
+        /// </summary>
+        public bool IsSpawnedCompleted { get; private set; } = false;
 
         // イベント
         public UnityEvent<GameState> OnGameStateChanged = new UnityEvent<GameState>();
@@ -70,10 +89,22 @@ namespace KanjiFlipGame.Core
             Debug.Log("GameManagerがネットワーク上に生成されました");
             
             // ロビー状態から開始
-            if (Object.HasStateAuthority && CurrentState == GameState.Waiting)
+            if (Object.HasStateAuthority)
             {
-                SetGameState(GameState.Lobby);
+                if (IsLocalTestModeRequested)
+                {
+                    IsLocalTestMode = true;
+                    IsLocalTestModeRequested = false;
+                    Debug.Log("GameManager: ローカルテストモードが有効化されました");
+                }
+
+                if (CurrentState == GameState.Waiting)
+                {
+                    SetGameState(GameState.Lobby);
+                }
             }
+
+            IsSpawnedCompleted = true;
         }
 
         #region マッチング・準備完了管理
@@ -102,6 +133,17 @@ namespace KanjiFlipGame.Core
             int playerCount = players.Count;
             if (playerCount == 0) return;
 
+            if (IsLocalTestMode)
+            {
+                // ローカルテストモード時は、自分がReadyなら1人でも開始可能
+                bool localReady = PlayerReadyStates.TryGet(Runner.LocalPlayer, out var ready) && ready;
+                if (localReady)
+                {
+                    Host_StartGame();
+                }
+                return;
+            }
+
             bool allReady = players.All(p => PlayerReadyStates.TryGet(p, out var ready) && ready);
             
             if (allReady)
@@ -125,11 +167,13 @@ namespace KanjiFlipGame.Core
 
         public bool IsPlayerReady(PlayerRef player)
         {
+            if (Object == null || !Object.IsValid || player == PlayerRef.None) return false;
             return PlayerReadyStates.TryGet(player, out var ready) && ready;
         }
 
         public bool IsPlayerConsented(PlayerRef player)
         {
+            if (Object == null || !Object.IsValid || player == PlayerRef.None) return false;
             return PlayerConsentStates.TryGet(player, out var consented) && consented;
         }
 
@@ -145,6 +189,9 @@ namespace KanjiFlipGame.Core
             if (Object.HasStateAuthority)
             {
                 CurrentRound = 0;
+                TotalAnswerersCount = 0;
+                AnswererIndex = -1;
+                
                 // 全プレイヤーのスコアをリセット
                 foreach (var player in Runner.ActivePlayers)
                 {
@@ -166,9 +213,65 @@ namespace KanjiFlipGame.Core
                 return;
             }
 
-            // 回答者をランダムに選出
-            var players = Runner.ActivePlayers.ToList();
-            CurrentAnswerer = players[Random.Range(0, players.Count)];
+            if (Object.HasStateAuthority)
+            {
+                var players = Runner.ActivePlayers.ToList();
+                
+                // 1巡目の順番がまだ作られていない、またはプレイヤー数に変動があった場合、新しく作成する
+                bool needNewOrder = (TotalAnswerersCount == 0);
+                if (!needNewOrder)
+                {
+                    int activeCount = players.Count;
+                    if (activeCount != TotalAnswerersCount)
+                    {
+                        needNewOrder = true;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < TotalAnswerersCount; i++)
+                        {
+                            if (!players.Contains(AnswererOrder[i]))
+                            {
+                                needNewOrder = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (needNewOrder)
+                {
+                    // プレイヤーリストを登録 (テストモードの場合は、ホスト以外をAnswererの順序の先頭にする)
+                    List<PlayerRef> sortedPlayers;
+                    if (System.Environment.GetCommandLineArgs().Contains("-runAutoTest") ||
+                        (Application.isEditor && System.IO.File.Exists("run_test_in_editor.txt")))
+                    {
+                        var hostPlayer = Runner.LocalPlayer;
+                        sortedPlayers = players.OrderBy(p => p == hostPlayer ? 1 : 0).ToList();
+                    }
+                    else
+                    {
+                        sortedPlayers = players.OrderBy(p => UnityEngine.Random.value).ToList();
+                    }
+                    TotalAnswerersCount = sortedPlayers.Count;
+                    
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < TotalAnswerersCount)
+                            AnswererOrder.Set(i, sortedPlayers[i]);
+                        else
+                            AnswererOrder.Set(i, PlayerRef.None);
+                    }
+                    AnswererIndex = 0;
+                }
+                else
+                {
+                    // すでに1巡目の順番がある場合は、順番に進める
+                    AnswererIndex = (AnswererIndex + 1) % TotalAnswerersCount;
+                }
+
+                CurrentAnswerer = AnswererOrder[AnswererIndex];
+            }
             
             // お題を自動選出
             CurrentTopic = "太陽"; // 暫定
@@ -183,6 +286,11 @@ namespace KanjiFlipGame.Core
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
         private void RPC_UpdateLocalRoles()
         {
+            if (IsLocalTestMode)
+            {
+                SetPlayerRole(PlayerRole.None);
+                return;
+            }
             if (Runner.LocalPlayer == CurrentAnswerer)
                 SetPlayerRole(PlayerRole.Answerer);
             else
@@ -264,19 +372,15 @@ namespace KanjiFlipGame.Core
             if (CurrentState == GameState.Questioning)
             {
                 SetGameState(GameState.Answering);
-                RPC_DisplayNextFlip();
+                RPC_DisplayNextFlip(flipDataJson, author);
             }
         }
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-        private void RPC_DisplayNextFlip()
+        private void RPC_DisplayNextFlip(string flipDataJson, PlayerRef author)
         {
-            if (_submissionQueue.Count > 0)
-            {
-                var flip = _submissionQueue[0];
-                OnFlipDisplayed?.Invoke(flip.FlipDataJson);
-                Debug.Log($"次のフリップを表示: 作者={flip.Author}");
-            }
+            OnFlipDisplayed?.Invoke(flipDataJson);
+            Debug.Log($"次のフリップを表示: 作者={author}");
         }
 
         #endregion
@@ -287,6 +391,10 @@ namespace KanjiFlipGame.Core
         {
             if (IsAnswerer) RPC_SubmitAnswer(Runner.LocalPlayer, answer);
         }
+
+        
+
+        
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_SubmitAnswer(PlayerRef player, string answer)
@@ -306,24 +414,36 @@ namespace KanjiFlipGame.Core
             }
             else
             {
-                _submissionQueue.RemoveAt(0);
-                if (_submissionQueue.Count > 0)
+                                if (_submissionQueue.Count == 0)
                 {
-                    RPC_DisplayNextFlip();
+                    Debug.LogWarning("Submission queue is empty when processing incorrect answer.");
+                    SetGameState(GameState.Questioning);
                 }
                 else
                 {
-                    SetGameState(GameState.Questioning);
+                    // Remove the current flip
+                    _submissionQueue.RemoveAt(0);
+                    if (_submissionQueue.Count > 0)
+                    {
+                        var nextFlip = _submissionQueue[0];
+                        RPC_DisplayNextFlip(nextFlip.FlipDataJson, nextFlip.Author);
+                    }
+                    else
+                    {
+                        SetGameState(GameState.Questioning);
+                    }
                 }
                 OnAnswerResult?.Invoke(false);
             }
         }
 
+        // 結果表示用ヘルパー
         public void ShowResult(bool isCorrect)
         {
             SetGameState(GameState.ShowingResult);
             OnAnswerResult?.Invoke(isCorrect);
         }
+
 
         #endregion
     }
